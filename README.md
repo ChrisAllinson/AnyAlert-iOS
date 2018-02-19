@@ -1,20 +1,20 @@
 
-#AnyAlert
+# AnyAlert
 
-v1.0.0
+#### v1.0.0
 
 Customizable Alert message for Swift
 
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-    -** [CocoaPods](#cocoaPods)
-    -** [Carthage](#carthage)
-    -** [Swift Pacakge Manager](#swift-pacakge-manager)
-    -** [Manually](#manually)
+    - [CocoaPods](#cocoapods)
+    - [Carthage](#carthage)
+    - [Swift Pacakge Manager](#swift-pacakge-manager)
+    - [Manually](#manually)
 - [Usage](#usage)
-    -** [Showing an Alert](#showing-an-alert)
-    -** [Showing an Alert with Tap Handler](#showing-an-alert-with-tap-handler)
+    - [Showing an Alert](#showing-an-alert)
+    - [Showing an Alert with Tap Handler](#showing-an-alert-with-tap-handler)
 - [Source Code](#source-code)
 - [Credits](#credits)
 - [License](#license)
@@ -65,7 +65,7 @@ Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://
 
 ### Showing an Alert
 
-Simply create an `AnyAlert`, then call `AlertManager.show(_ alert: AnyAlert, from vc: UIViewController)`:
+Simply create an `AnyAlert`, then call `AnyAlertManager.show(_ alert: AnyAlert, from vc: UIViewController)`:
 
 ```
 let tempAlert: AnyAlert = AnyAlert(
@@ -88,7 +88,7 @@ AnyAlertManager.show(tempAlert, from: self)
 
 ### Showing an Alert with Tap Handler
 
-Simply create an `AnyAlert`, then call `AlertManager.show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))`:
+Simply create an `AnyAlert`, then call `AnyAlertManager.show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))`:
 
 ```
 let tempAlert: AnyAlert = AnyAlert(
