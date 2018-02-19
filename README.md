@@ -13,6 +13,7 @@ Customizable Alert message for Swift
     - [Swift Pacakge Manager](#swift-pacakge-manager)
     - [Manually](#manually)
 - [Usage](#usage)
+    - [Import AnyAlert](#import-anyalert)
     - [Showing an Alert](#showing-an-alert)
     - [Showing an Alert with Tap Handler](#showing-an-alert-with-tap-handler)
 - [Source Code](#source-code)
@@ -62,6 +63,10 @@ Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://
 
 
 ## Usage
+
+### Import AnyAlert
+
+`import AnyAlert`
 
 ### Showing an Alert
 
