@@ -8,9 +8,14 @@ Customizable Alert message for Swift
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
+    -** [CocoaPods](#cocoaPods)
+    -** [Carthage](#carthage)
+    -** [Swift Pacakge Manager](#swift-pacakge-manager)
+    -** [Manually](#manually)
 - [Usage](#usage)
     -** [Showing an Alert](#showing-an-alert)
     -** [Showing an Alert with Tap Handler](#showing-an-alert-with-tap-handler)
+- [Source Code](#source-code)
 - [Credits](#credits)
 - [License](#license)
 
@@ -50,7 +55,7 @@ Customizable Alert message for Swift
 
 ### Manually
 
-Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/master/AnyAlert/AnyAlert).
+Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.0.0/AnyAlert/AnyAlert).
 
 
 ---
@@ -108,6 +113,11 @@ AnyAlertManager.show(tempAlert, from: self, tapHandler: { _ in
 
 
 ---
+
+
+## Source Code
+
+[GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.0.0/AnyAlert/AnyAlert)
 
 
 ## Credits
