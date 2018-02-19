@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1036" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="AnyAlert" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOO-tO-vxG">
+                                <rect key="frame" x="150.5" y="293.5" width="75" height="30"/>
+                                <state key="normal" title="Show Alert"/>
+                                <connections>
+                                    <action selector="showAlertPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="jo8-wn-RgF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBj-FA-zmu">
+                                <rect key="frame" x="96.5" y="343.5" width="183" height="30"/>
+                                <state key="normal" title="Show Self Dismissing Alert"/>
+                                <connections>
+                                    <action selector="showSelfDismissingAlertPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="rRo-5g-Ri5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stQ-JV-gRf">
+                                <rect key="frame" x="92" y="617" width="192" height="30"/>
+                                <state key="normal" title="^ Present VC With Nav Bar ^"/>
+                                <connections>
+                                    <segue destination="V6v-wc-Tla" kind="show" id="snB-xK-AMb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="AOO-tO-vxG" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-25" id="0Dk-as-G15"/>
+                            <constraint firstItem="tBj-FA-zmu" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="25" id="NQO-vQ-iOf"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="stQ-JV-gRf" secondAttribute="bottom" constant="20" id="Rja-zd-Yb1"/>
+                            <constraint firstItem="tBj-FA-zmu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nmO-d0-ed2"/>
+                            <constraint firstItem="AOO-tO-vxG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="o91-TA-mbD"/>
+                            <constraint firstItem="stQ-JV-gRf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oyf-6p-CUf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2Fb-Sv-eaw">
+            <objects>
+                <navigationController id="V6v-wc-Tla" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="aYG-eg-Ct6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="M3o-J1-MMo" kind="relationship" relationship="rootViewController" id="ObI-E2-y9J"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mt2-6A-7ed" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1086" y="139"/>
+        </scene>
+        <!--View Controller2-->
+        <scene sceneID="Qc7-c5-Huc">
+            <objects>
+                <viewController storyboardIdentifier="ViewController2" id="M3o-J1-MMo" customClass="ViewController2" customModule="AnyAlert" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vN4-Qq-ewj"/>
+                        <viewControllerLayoutGuide type="bottom" id="0i9-iJ-jnq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QsJ-o2-7oF">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrM-7m-7rf">
+                                <rect key="frame" x="150" y="261.5" width="75" height="30"/>
+                                <state key="normal" title="Show Alert"/>
+                                <connections>
+                                    <action selector="showAlertPressed" destination="M3o-J1-MMo" eventType="touchUpInside" id="dIK-cs-gVC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ObV-9U-Lz7">
+                                <rect key="frame" x="96" y="311.5" width="183" height="30"/>
+                                <state key="normal" title="Show Self Dismissing Alert"/>
+                                <connections>
+                                    <action selector="showSelfDismissingAlertPressed" destination="M3o-J1-MMo" eventType="touchUpInside" id="6Wn-Z3-nZU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ObV-9U-Lz7" firstAttribute="centerY" secondItem="QsJ-o2-7oF" secondAttribute="centerY" constant="25" id="VSw-14-Hn5"/>
+                            <constraint firstItem="ObV-9U-Lz7" firstAttribute="centerX" secondItem="QsJ-o2-7oF" secondAttribute="centerX" id="YOt-H1-VT1"/>
+                            <constraint firstItem="MrM-7m-7rf" firstAttribute="centerY" secondItem="QsJ-o2-7oF" secondAttribute="centerY" constant="-25" id="rZy-vk-Fe6"/>
+                            <constraint firstItem="MrM-7m-7rf" firstAttribute="centerX" secondItem="QsJ-o2-7oF" secondAttribute="centerX" id="u7b-en-pWl"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" id="44n-Dg-320">
+                        <barButtonItem key="rightBarButtonItem" title="Close" id="Ksz-hW-0yD">
+                            <connections>
+                                <action selector="closePressed" destination="M3o-J1-MMo" id="Oq1-bz-eAZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MpO-pP-kEg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1862" y="139"/>
+        </scene>
+    </scenes>
+</document>
