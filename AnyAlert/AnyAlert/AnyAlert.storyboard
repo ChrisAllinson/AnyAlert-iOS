@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1036" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -20,6 +18,10 @@
         <scene sceneID="eOn-cf-BDK">
             <objects>
                 <viewController storyboardIdentifier="AnyAlertViewController" id="N6E-Ya-jBQ" customClass="AnyAlertViewController" customModule="AnyAlert" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WIP-l1-GCM"/>
+                        <viewControllerLayoutGuide type="bottom" id="aun-M9-BIK"/>
+                    </layoutGuides>
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="UqV-qN-Oxy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,7 +29,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfN-FU-rJg" userLabel="Alert Container">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-2g-DQn">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-2g-DQn">
                                         <rect key="frame" x="30" y="51" width="315" height="39"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <gestureRecognizers/>
@@ -35,7 +37,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFr-bs-F0h" userLabel="Close Button">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFr-bs-F0h" userLabel="Close Button">
                                         <rect key="frame" x="345" y="55.5" width="30" height="30"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -53,23 +55,22 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="95" id="8uJ-UU-srq"/>
                                     <constraint firstAttribute="bottom" secondItem="Xbl-2g-DQn" secondAttribute="bottom" constant="5" id="BIc-c7-KSd"/>
                                     <constraint firstItem="Xbl-2g-DQn" firstAttribute="top" secondItem="MfN-FU-rJg" secondAttribute="top" constant="51" id="F9j-3f-c8A"/>
                                     <constraint firstItem="VFr-bs-F0h" firstAttribute="centerY" secondItem="Xbl-2g-DQn" secondAttribute="centerY" id="avD-G5-uyx"/>
+                                    <constraint firstItem="Xbl-2g-DQn" firstAttribute="leading" secondItem="MfN-FU-rJg" secondAttribute="leading" constant="30" id="niy-Ce-KAl"/>
+                                    <constraint firstAttribute="height" constant="95" id="wJW-E4-ISW"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MfN-FU-rJg" firstAttribute="leading" secondItem="UqV-qN-Oxy" secondAttribute="leading" id="0IB-eV-U4B"/>
-                            <constraint firstItem="Xbl-2g-DQn" firstAttribute="leading" secondItem="SnJ-Uy-M72" secondAttribute="leading" constant="30" id="2sy-Mw-Nb0"/>
-                            <constraint firstItem="VFr-bs-F0h" firstAttribute="trailing" secondItem="SnJ-Uy-M72" secondAttribute="trailing" id="6n9-Rm-Ab5"/>
-                            <constraint firstItem="MfN-FU-rJg" firstAttribute="trailing" secondItem="UqV-qN-Oxy" secondAttribute="trailing" id="LtC-0t-bv6"/>
+                            <constraint firstItem="VFr-bs-F0h" firstAttribute="trailing" secondItem="UqV-qN-Oxy" secondAttribute="trailing" id="6n9-Rm-Ab5"/>
+                            <constraint firstAttribute="trailing" secondItem="MfN-FU-rJg" secondAttribute="trailing" id="QHM-gv-oIg"/>
                             <constraint firstItem="MfN-FU-rJg" firstAttribute="top" secondItem="UqV-qN-Oxy" secondAttribute="top" id="WEu-vd-9N5"/>
-                            <constraint firstItem="SnJ-Uy-M72" firstAttribute="trailing" secondItem="Xbl-2g-DQn" secondAttribute="trailing" constant="30" id="c5b-sD-UMB"/>
+                            <constraint firstAttribute="trailing" secondItem="Xbl-2g-DQn" secondAttribute="trailing" constant="30" id="c5b-sD-UMB"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="SnJ-Uy-M72"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
@@ -80,7 +81,7 @@
                     <connections>
                         <outlet property="alertContainer" destination="MfN-FU-rJg" id="lAo-tQ-04w"/>
                         <outlet property="closeButton" destination="VFr-bs-F0h" id="hxf-zv-EMk"/>
-                        <outlet property="heightConstraint" destination="8uJ-UU-srq" id="Yjp-zS-DPD"/>
+                        <outlet property="heightConstraint" destination="wJW-E4-ISW" id="mRM-3s-EM8"/>
                         <outlet property="messageLabel" destination="Xbl-2g-DQn" id="otS-Hw-krM"/>
                         <outlet property="topConstraint" destination="WEu-vd-9N5" id="S0T-9Q-4Ad"/>
                     </connections>

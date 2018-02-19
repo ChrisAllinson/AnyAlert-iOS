@@ -100,9 +100,9 @@ class AnyAlertViewController: UIViewController
         if hasNavBar {
             vc.dataStore?.endPositionY = -46.0
         } else {
-            if #available(iOS 11.0, *) {
-                let isPhoneX = (UIApplication.shared.keyWindow?.safeAreaInsets.top)! > CGFloat(0.0) || (UIApplication.shared.keyWindow?.safeAreaInsets)! != .zero
-                vc.dataStore?.endPositionY = isPhoneX ? -10.0 : -26.0
+            let isPhoneX = UIScreen.main.fixedCoordinateSpace.bounds.size.height == CGFloat(812.0)
+            if isPhoneX {
+                vc.dataStore?.endPositionY = -10.0
             } else {
                 vc.dataStore?.endPositionY = -26.0
             }
