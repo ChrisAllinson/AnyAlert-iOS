@@ -13,6 +13,7 @@ Customizable Alert message for Swift
     - [Swift Pacakge Manager](#swift-pacakge-manager)
     - [Manually](#manually)
 - [Usage](#usage)
+    - [Edit info.plist](#edit-info-plist)
     - [Import AnyAlert](#import-anyalert)
     - [Showing an Alert](#showing-an-alert)
     - [Showing an Alert with Tap Handler](#showing-an-alert-with-tap-handler)
@@ -63,6 +64,10 @@ Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://
 
 
 ## Usage
+
+### Edit info plist
+
+`View controller-based status bar appearance = NO`
 
 ### Import AnyAlert
 
