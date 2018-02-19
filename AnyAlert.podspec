@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
   s.ios.deployment_target = "9.0"
-  s.source   = { :git => "https://github.com/ChrisAllinson/AnyAlert.git", :branch => 'master', :tag => s.version }
+  s.source   = { :git => "https://github.com/ChrisAllinson/AnyAlert-iOS.git", :branch => 'master', :tag => s.version }
   s.source_files = "AnyAlert/AnyAlert/*.{swift}"
   s.resources = 'AnyAlert/AnyAlert/*.{storyboard}'
 end
