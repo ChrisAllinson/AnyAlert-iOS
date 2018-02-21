@@ -1,9 +1,9 @@
 
 # AnyAlert
 
-#### v1.1.0
+#### v1.1.1
 
-Customizable Alert message for Swift
+Customizable Alert message for Objective-C and Swift
 
 - [Features](#features)
 - [Requirements](#requirements)
@@ -42,7 +42,7 @@ Customizable Alert message for Swift
 
 [CocoaPods](http://cocoapods.org)
 
-`pod 'AnyAlert', '1.1.0'`
+`pod 'AnyAlert', '1.1.1'`
 
 ### Carthage
 
@@ -58,7 +58,7 @@ Customizable Alert message for Swift
 
 ### Manually
 
-Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.1.0/AnyAlert/AnyAlert).
+Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.1.1/AnyAlert/AnyAlert).
 
 
 ---
@@ -177,7 +177,7 @@ AnyAlert *tempAlert = [[AnyAlert alloc] initWithMessage: @"Test Message"
 
 ## Source Code
 
-[GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.1.0/AnyAlert/AnyAlert)
+[GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.1.1/AnyAlert/AnyAlert)
 
 
 ## Credits
