@@ -13,6 +13,11 @@
 import UIKit
 
 
+protocol AnyAlertDelegate
+{
+    func popAlert(id: String, parentVcName: String)
+}
+
 protocol AnyAlertDisplayLogic: class
 {
     func setStyle(viewModel: AnyAlertAction.Display.ViewModel)

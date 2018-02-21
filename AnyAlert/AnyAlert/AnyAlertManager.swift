@@ -22,11 +22,6 @@ protocol AnyAlertManagerInput
     static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))
 }
 
-protocol AnyAlertDelegate
-{
-    func popAlert(id: String, parentVcName: String)
-}
-
 
 // MARK: -
 

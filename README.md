@@ -1,7 +1,7 @@
 
 # AnyAlert
 
-#### v1.0.0
+#### v1.1.0
 
 Customizable Alert message for Swift
 
@@ -26,13 +26,14 @@ Customizable Alert message for Swift
 
 - [x] Customizable everything
 - [x] iPhoneX support
+- [x] Use Objective-C or Swift 3.0+
 
 
 ## Requirements
 
 - Xcode 8.0+
-- Swift 3.0+
-- iOS 9.0+
+- iOS 8.0+
+- Objective-C or Swift 3.0+
 
 
 ## Installation
@@ -41,7 +42,7 @@ Customizable Alert message for Swift
 
 [CocoaPods](http://cocoapods.org)
 
-`pod 'AnyAlert', '1.0.0'`
+`pod 'AnyAlert', '1.1.0'`
 
 ### Carthage
 
@@ -57,7 +58,7 @@ Customizable Alert message for Swift
 
 ### Manually
 
-Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.0.0/AnyAlert/AnyAlert).
+Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.1.0/AnyAlert/AnyAlert).
 
 
 ---
@@ -71,12 +72,21 @@ Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://
 
 ### Import AnyAlert
 
+Swift:
+
 `import AnyAlert`
+
+Objective-C:
+
+`#import "AnyAlert-Swift.h"`
+
+`@protocol AnyAlertManagerInput;`
 
 ### Showing an Alert
 
 Simply create an `AnyAlert`, then call `AnyAlertManager.show(_ alert: AnyAlert, from vc: UIViewController)`:
 
+Swift:
 ```
 let tempAlert: AnyAlert = AnyAlert(
     message: "Test Message",
@@ -96,10 +106,30 @@ let tempAlert: AnyAlert = AnyAlert(
 AnyAlertManager.show(tempAlert, from: self)
 ```
 
+Objective-C:
+```
+AnyAlert *tempAlert = [[AnyAlert alloc] initWithMessage: @"Test Message"
+                                        backgroundColor: [UIColor redColor]
+                                        statusBarStyle: UIStatusBarStyleLightContent
+                                        messageFont: [UIFont boldSystemFontOfSize:12.0]
+                                        messageColor: [UIColor whiteColor]
+                                        closeButtonFont: [UIFont boldSystemFontOfSize:12.0]
+                                        closeButtonColor: [UIColor whiteColor]
+                                        height: 95.0
+                                        openSpeed: 0.5
+                                        closeSpeed: 0.5
+                                        doesSelfDismiss: false
+                                        showFor: 1.0];
+
+[AnyAlertManager show:tempAlert from:self];
+```
+
+
 ### Showing an Alert with Tap Handler
 
 Simply create an `AnyAlert`, then call `AnyAlertManager.show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))`:
 
+Swift:
 ```
 let tempAlert: AnyAlert = AnyAlert(
     message: "Test Message",
@@ -121,13 +151,33 @@ AnyAlertManager.show(tempAlert, from: self, tapHandler: { _ in
 })
 ```
 
+Objective-C:
+```
+AnyAlert *tempAlert = [[AnyAlert alloc] initWithMessage: @"Test Message"
+                                        backgroundColor: [UIColor redColor]
+                                        statusBarStyle: UIStatusBarStyleLightContent
+                                        messageFont: [UIFont boldSystemFontOfSize:12.0]
+                                        messageColor: [UIColor whiteColor]
+                                        closeButtonFont: [UIFont boldSystemFontOfSize:12.0]
+                                        closeButtonColor: [UIColor whiteColor]
+                                        height: 95.0
+                                        openSpeed: 0.5
+                                        closeSpeed: 0.5
+                                        doesSelfDismiss: false
+                                        showFor: 1.0];
+
+[AnyAlertManager show:tempAlert from:self tapHandler:^(void){
+    NSLog(@"TAPPED");
+}];
+```
+
 
 ---
 
 
 ## Source Code
 
-[GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.0.0/AnyAlert/AnyAlert)
+[GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/1.1.0/AnyAlert/AnyAlert)
 
 
 ## Credits
