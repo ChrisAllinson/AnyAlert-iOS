@@ -15,20 +15,17 @@ protocol AnyAlertManagerDataStore
     var alerts: Dictionary<String, [AnyAlertViewController]> { get set }
 }
 
+@objc
 protocol AnyAlertManagerInput
 {
     static func show(_ alert: AnyAlert, from vc: UIViewController)
-}
-
-protocol AnyAlertDelegate
-{
-    func popAlert(id: String, parentVcName: String)
+    static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))
 }
 
 
 // MARK: -
 
-public class AnyAlertManager: AnyAlertManagerDataStore
+public class AnyAlertManager: NSObject, AnyAlertManagerDataStore
 {
     // MARK: Singleton instance variables
     
