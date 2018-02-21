@@ -16,7 +16,7 @@ import UIKit
 
 // MARK: -
 
-public struct AnyAlert
+public class AnyAlert: NSObject
 {
     public var message: String
     
