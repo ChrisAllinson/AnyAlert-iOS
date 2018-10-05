@@ -3,7 +3,7 @@
 
 #### v3.1.0
 
-Customizable Alert message for Swift
+Customizable Alert message for iOS
 
 - [Features](#features)
 - [Requirements](#requirements)
@@ -12,11 +12,7 @@ Customizable Alert message for Swift
     - [Carthage](#carthage)
     - [Swift Pacakge Manager](#swift-pacakge-manager)
     - [Manually](#manually)
-- [Usage](#usage)
-    - [Edit info.plist](#edit-info-plist)
-    - [Import AnyAlert](#import-anyalert)
-    - [Showing an Alert](#showing-an-alert)
-    - [Showing an Alert with Tap Handler](#showing-an-alert-with-tap-handler)
+- [Docs](#docs)
 - [Source Code](#source-code)
 - [Credits](#credits)
 - [License](#license)
@@ -60,69 +56,9 @@ Customizable Alert message for Swift
 Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/3.1.0/AnyAlert/AnyAlert).
 
 
----
+## Docs
 
-
-## Usage
-
-### Edit info plist
-
-`View controller-based status bar appearance = NO`
-
-### Import AnyAlert
-
-`import AnyAlert`
-
-### Showing an Alert
-
-Simply create an `AnyAlert`, then call `AnyAlertManager.show(_ alert: AnyAlert, from vc: UIViewController)`:
-
-```
-let tempAlert: AnyAlert = AnyAlert(
-    message: "Test Message",
-    backgroundColor: .red,
-    statusBarStyle: .lightContent,
-    messageFont: UIFont.systemFont(ofSize: 16.0),
-    messageColor: .white,
-    closeButtonFont: UIFont.systemFont(ofSize: 16.0),
-    closeButtonColor: .white,
-    height: 95.0,
-    openSpeed: 0.5,
-    closeSpeed: 0.5,
-    doesSelfDismiss: false,
-    showFor: 2.0
-)
-
-AnyAlertManager.show(tempAlert, from: self)
-```
-
-### Showing an Alert with Tap Handler
-
-Simply create an `AnyAlert`, then call `AnyAlertManager.show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))`:
-
-```
-let tempAlert: AnyAlert = AnyAlert(
-    message: "Test Message",
-    backgroundColor: .red,
-    statusBarStyle: .lightContent,
-    messageFont: UIFont.systemFont(ofSize: 16.0),
-    messageColor: .white,
-    closeButtonFont: UIFont.systemFont(ofSize: 16.0),
-    closeButtonColor: .white,
-    height: 95.0,
-    openSpeed: 0.5,
-    closeSpeed: 0.5,
-    doesSelfDismiss: false,
-    showFor: 2.0
-)
-
-AnyAlertManager.show(tempAlert, from: self, tapHandler: {
-    print("Tapped!")
-})
-```
-
-
----
+[www.allinson.ca/a/anyalert](http://allinson.ca/a/anyalert/)
 
 
 ## Source Code
@@ -132,7 +68,7 @@ AnyAlertManager.show(tempAlert, from: self, tapHandler: {
 
 ## Credits
 
-AnyAlert is owned and maintained by [Chris Allinson](http://www.allinson.ca).
+AnyAlert is owned and maintained by [Christopher James Allinson](http://www.allinson.ca).
 
 
 ## License
