@@ -1,7 +1,7 @@
 
 # AnyAlert
 
-#### v3.0.0
+#### v3.1.0
 
 Customizable Alert message for Swift
 
@@ -32,7 +32,7 @@ Customizable Alert message for Swift
 
 - Xcode 9.0+
 - iOS 9.0+
-- Swift 3.0+
+- Swift 4.0+ or Objective-C
 
 
 ## Installation
@@ -41,7 +41,7 @@ Customizable Alert message for Swift
 
 [CocoaPods](http://cocoapods.org)
 
-`pod 'AnyAlert', '3.0.0'`
+`pod 'AnyAlert', '3.1.0'`
 
 ### Carthage
 
@@ -57,7 +57,7 @@ Customizable Alert message for Swift
 
 ### Manually
 
-Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/3.0.0/AnyAlert/AnyAlert).
+Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/3.1.0/AnyAlert/AnyAlert).
 
 
 ---
@@ -116,7 +116,7 @@ let tempAlert: AnyAlert = AnyAlert(
     showFor: 2.0
 )
 
-AnyAlertManager.show(tempAlert, from: self, tapHandler: { _ in
+AnyAlertManager.show(tempAlert, from: self, tapHandler: {
     print("Tapped!")
 })
 ```
@@ -127,7 +127,7 @@ AnyAlertManager.show(tempAlert, from: self, tapHandler: { _ in
 
 ## Source Code
 
-[GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/3.0.0/AnyAlert/AnyAlert)
+[GitHub](https://github.com/ChrisAllinson/AnyAlert-iOS/tree/3.1.0/AnyAlert/AnyAlert)
 
 
 ## Credits
