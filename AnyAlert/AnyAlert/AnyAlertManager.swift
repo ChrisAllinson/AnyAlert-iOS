@@ -40,7 +40,19 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
     
     // MARK: private methods
     
-    private func initCustom(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
+    private func vcHasNavBar(_ vc: UIViewController) -> Bool {
+        if let _ = vc.navigationController {
+            let isNavBarHidden: Bool = (vc.navigationController?.isNavigationBarHidden)!
+            return !isNavBarHidden
+        }
+        return false
+    }
+    
+    
+    
+    // MARK: fileprivate methods
+    
+    fileprivate func initCustom(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
         let vcName = vc.debugDescription
         
         if initialStatusBarStyles[vcName] == nil {
@@ -104,14 +116,6 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
                 constant: CGFloat((tempVC.dataStore?.height)!)
             )
         ])
-    }
-    
-    private func vcHasNavBar(_ vc: UIViewController) -> Bool {
-        if let _ = vc.navigationController {
-            let isNavBarHidden: Bool = (vc.navigationController?.isNavigationBarHidden)!
-            return !isNavBarHidden
-        }
-        return false
     }
 }
 
