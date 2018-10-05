@@ -12,34 +12,24 @@ class ViewController2: UIViewController {
     
     // MARK: Lifecycle methods
     
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-    }
-    
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         UIApplication.shared.statusBarStyle = .lightContent
-    }
-    
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
     }
     
     
     
     // MARK: UI Events
     
-    @IBAction func showAlertPressed()
-    {
+    @IBAction func showAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
             message: "Test Message",
             backgroundColor: .red,
             statusBarStyle: .lightContent,
-            messageFont: UIFont.systemFont(ofSize: 16.0),
+            messageFont: .systemFont(ofSize: 16.0),
             messageColor: .white,
-            closeButtonFont: UIFont.systemFont(ofSize: 16.0),
+            closeButtonFont: .systemFont(ofSize: 16.0),
             closeButtonColor: .white,
             height: 95.0,
             openSpeed: 0.5,
@@ -50,15 +40,14 @@ class ViewController2: UIViewController {
         AnyAlertManager.show(tempAlert, from: self)
     }
     
-    @IBAction func showSelfDismissingAlertPressed()
-    {
+    @IBAction func showSelfDismissingAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
             message: "Test Message",
             backgroundColor: .orange,
             statusBarStyle: .lightContent,
-            messageFont: UIFont.systemFont(ofSize: 16.0),
+            messageFont: .systemFont(ofSize: 16.0),
             messageColor: .black,
-            closeButtonFont: UIFont.systemFont(ofSize: 16.0),
+            closeButtonFont: .systemFont(ofSize: 16.0),
             closeButtonColor: .black,
             height: 95.0,
             openSpeed: 0.5,
@@ -69,8 +58,7 @@ class ViewController2: UIViewController {
         AnyAlertManager.show(tempAlert, from: self)
     }
     
-    @IBAction func closePressed()
-    {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+    @IBAction func closePressed() {
+        navigationController?.dismiss(animated: true, completion: nil)
     }
 }

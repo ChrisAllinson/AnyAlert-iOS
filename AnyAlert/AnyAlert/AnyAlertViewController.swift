@@ -1,6 +1,6 @@
 //
 //  AnyAlertViewController.swift
-//  AnyApp
+//  AnyAlert
 //
 //  Created by Chris Allinson on 2018-01-20.
 //  Copyright (c) 2018 Chris Allinson. All rights reserved.
@@ -13,8 +13,7 @@
 import UIKit
 
 
-protocol AnyAlertDisplayLogic: class
-{
+protocol AnyAlertDisplayLogic: class {
     func setStyle(viewModel: AnyAlertAction.Display.ViewModel)
     func setMessage(viewModel: AnyAlertAction.Display.ViewModel)
     func setCloseButtonVisibility(viewModel: AnyAlertAction.Display.ViewModel)
@@ -23,48 +22,49 @@ protocol AnyAlertDisplayLogic: class
     func hideAlert(viewModel: AnyAlertAction.Dismiss.ViewModel)
 }
 
+protocol AnyAlertDelegate {
+    func popAlert(id: String, parentVcName: String)
+}
+
 
 // MARK: -
 
-class AnyAlertViewController: UIViewController
-{
-    // MARK: Instance variables
+class AnyAlertViewController: UIViewController {
+    
+    // MARK: instance variables
+    
+    @IBOutlet var alertContainer: UIView?
+    @IBOutlet var topConstraint: NSLayoutConstraint?
+    @IBOutlet var heightConstraint: NSLayoutConstraint?
+    @IBOutlet var messageLabel: UILabel?
+    @IBOutlet var closeButton: UIButton?
     
     var interactor: AnyAlertBusinessLogic?
     var dataStore: AnyAlertDataStore?
     
     var tapGestureRecognizer: UITapGestureRecognizer?
     
-    @IBOutlet weak var alertContainer: UIView?
-    @IBOutlet weak var topConstraint: NSLayoutConstraint?
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint?
-    @IBOutlet weak var messageLabel: UILabel?
-    @IBOutlet weak var closeButton: UIButton?
     
     
+    // MARK: object lifecycle methods
     
-    // MARK: Object lifecycle
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         setup()
     }
     
-    // MARK: Custom init methods
+    // MARK: custom init methods
     
-    class func `init`(delegate: AnyAlertDelegate, alert: AnyAlert, parentVcName: String, initialStatusBarStyle: UIStatusBarStyle, hasNavBar: Bool, tapHandler: (() -> Void)? = nil) -> AnyAlertViewController
-    {
+    class func `init`(delegate: AnyAlertDelegate, alert: AnyAlert, parentVcName: String, initialStatusBarStyle: UIStatusBarStyle, hasNavBar: Bool, tapHandler: (() -> Void)? = nil) -> AnyAlertViewController {
         let storyboard: UIStoryboard = UIStoryboard(name: "AnyAlert", bundle: Bundle(for: self.classForCoder()))
-        
-        let vc: AnyAlertViewController = storyboard.instantiateViewController(withIdentifier: "AnyAlertViewController") as! AnyAlertViewController
+        guard let vc: AnyAlertViewController = storyboard.instantiateViewController(withIdentifier: "AnyAlertViewController") as? AnyAlertViewController else {
+            return storyboard.instantiateViewController(withIdentifier: "AnyAlertViewController") as! AnyAlertViewController
+        }
         
         vc.view.frame = CGRect(x: 0.0, y: 0.0, width: vc.view.frame.size.width, height: CGFloat(alert.height))
         
         vc.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        
         
         vc.dataStore?.delegate = delegate
         
@@ -72,79 +72,66 @@ class AnyAlertViewController: UIViewController
         vc.dataStore?.id = uuid
         
         vc.dataStore?.message = alert.message
-        
         vc.dataStore?.backgroundColor = alert.backgroundColor
-        
         vc.dataStore?.messageFont = alert.messageFont
-        
         vc.dataStore?.messageColor = alert.messageColor
-        
         vc.dataStore?.closeButtonFont = alert.closeButtonFont
-        
         vc.dataStore?.closeButtonColor = alert.closeButtonColor
-        
         vc.dataStore?.parentVcName = parentVcName
-        
         vc.dataStore?.initialStatusBarStyle = initialStatusBarStyle
-        
         vc.dataStore?.doesSelfDismiss = alert.doesSelfDismiss
-        
         vc.dataStore?.height = alert.height
-        
         vc.dataStore?.statusBarStyle = alert.statusBarStyle
-        
         vc.dataStore?.hasNavBar = hasNavBar
-        
         vc.dataStore?.startPositionY = -1.0 * alert.height
         
         if hasNavBar {
             vc.dataStore?.endPositionY = -46.0
         } else {
             if #available(iOS 11.0, *) {
-                let isPhoneX = (UIApplication.shared.keyWindow?.safeAreaInsets.top)! > CGFloat(0.0) || (UIApplication.shared.keyWindow?.safeAreaInsets)! != .zero
-                vc.dataStore?.endPositionY = isPhoneX ? -10.0 : -26.0
+                if let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets {
+                    let isPhoneX = safeAreaInsets.top > CGFloat(0.0) || safeAreaInsets != .zero
+                    vc.dataStore?.endPositionY = isPhoneX ? -10.0 : -26.0
+                }
             } else {
                 vc.dataStore?.endPositionY = -26.0
             }
         }
         
         vc.dataStore?.openSpeed = alert.openSpeed
-        
         vc.dataStore?.closeSpeed = alert.closeSpeed
-        
         vc.dataStore?.showFor = alert.showFor
-        
         vc.dataStore?.tapHandler = tapHandler
-        
-        
         
         return vc
     }
     
-    // MARK: View lifecycle
+    // MARK: view lifecycle
     
-    override func viewWillAppear(_ animated: Bool)
-    {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         resetTopConstraint()
         setTapGestureRecognizer()
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         displayAlert()
     }
     
-    override func viewWillDisappear(_ animated: Bool)
-    {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         dismissAlert(immediately: true)
     }
     
     
     
-    // MARK: Setup
+    // MARK: setup
     
-    private func setup()
-    {
+    private func setup() {
         let viewController: AnyAlertViewController = self
         let interactor: AnyAlertInteractor = AnyAlertInteractor()
         let presenter: AnyAlertPresenter = AnyAlertPresenter()
@@ -158,76 +145,88 @@ class AnyAlertViewController: UIViewController
     
     // MARK: UI Events
     
-    @IBAction func closePressed()
-    {
+    @IBAction func closePressed() {
         dismissAlert()
     }
     
     
     
-    // MARK: Gesture handlers
+    // MARK: gesture handlers
     
-    @objc func alertTapped()
-    {
-        dataStore?.tapHandler!()
+    @objc func alertTapped() {
+        guard let tempTapHandler = dataStore?.tapHandler else {
+            return
+        }
+        
+        tempTapHandler()
     }
     
     
     
-    // MARK: Private methods
+    // MARK: private methods
     
-    private func resetTopConstraint()
-    {
-        self.topConstraint?.constant = CGFloat( (dataStore?.startPositionY)! )
+    private func resetTopConstraint() {
+        guard let tempStartY = dataStore?.startPositionY else {
+            return
+        }
+        
+        self.topConstraint?.constant = CGFloat(tempStartY)
         self.view.layoutIfNeeded()
     }
     
-    private func setTapGestureRecognizer()
-    {
+    private func setTapGestureRecognizer() {
         guard dataStore?.tapHandler != nil else {
             return
         }
         
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(alertTapped))
-        self.messageLabel?.addGestureRecognizer(tapGestureRecognizer!)
-        self.messageLabel?.isUserInteractionEnabled = true
+        if let gesture = tapGestureRecognizer {
+            self.messageLabel?.addGestureRecognizer(gesture)
+            self.messageLabel?.isUserInteractionEnabled = true
+        }
     }
     
-    private func displayAlert()
-    {
+    private func displayAlert() {
+        guard let tempDataStore = dataStore else {
+            return
+        }
+        
         let request: AnyAlertAction.Display.Request = AnyAlertAction.Display.Request(
-            delegate: (dataStore?.delegate)!,
-            id: (dataStore?.id)!,
-            message: (dataStore?.message)!,
-            backgroundColor: (dataStore?.backgroundColor)!,
-            statusBarStyle: (dataStore?.statusBarStyle)!,
-            messageFont: (dataStore?.messageFont)!,
-            messageColor: (dataStore?.messageColor)!,
-            closeButtonFont: (dataStore?.closeButtonFont)!,
-            closeButtonColor: (dataStore?.closeButtonColor)!,
-            openSpeed: (dataStore?.openSpeed)!,
-            closeSpeed: (dataStore?.closeSpeed)!,
-            doesSelfDismiss: (dataStore?.doesSelfDismiss)!,
-            showFor: (dataStore?.showFor)!,
-            hasNavBar: (dataStore?.hasNavBar)!,
-            parentVcName: (dataStore?.parentVcName)!,
-            initialStatusBarStyle: (dataStore?.initialStatusBarStyle)!,
-            startPositionY: (dataStore?.startPositionY)!,
-            endPositionY: (dataStore?.endPositionY)!
+            delegate: tempDataStore.delegate,
+            id: tempDataStore.id,
+            message: tempDataStore.message,
+            backgroundColor: tempDataStore.backgroundColor,
+            statusBarStyle: tempDataStore.statusBarStyle,
+            messageFont: tempDataStore.messageFont,
+            messageColor: tempDataStore.messageColor,
+            closeButtonFont: tempDataStore.closeButtonFont,
+            closeButtonColor: tempDataStore.closeButtonColor,
+            openSpeed: tempDataStore.openSpeed,
+            closeSpeed: tempDataStore.closeSpeed,
+            doesSelfDismiss: tempDataStore.doesSelfDismiss,
+            showFor: tempDataStore.showFor,
+            hasNavBar: tempDataStore.hasNavBar,
+            parentVcName: tempDataStore.parentVcName,
+            initialStatusBarStyle: tempDataStore.initialStatusBarStyle,
+            startPositionY: tempDataStore.startPositionY,
+            endPositionY: tempDataStore.endPositionY
         )
         interactor?.displayAlert(request: request)
     }
     
-    private func dismissAlert(immediately: Bool? = false)
-    {
+    private func dismissAlert(immediately: Bool? = false) {
+        guard let tempDataStore = dataStore else {
+            return
+        }
+        
         let tempRequest: AnyAlertAction.Dismiss.Request = AnyAlertAction.Dismiss.Request(
-            delegate: (dataStore?.delegate)!,
-            id: (dataStore?.id)!,
-            closeSpeed: (dataStore?.closeSpeed)!,
-            hasNavBar: (dataStore?.hasNavBar)!,
-            parentVcName: (dataStore?.parentVcName)!,
-            initialStatusBarStyle: (dataStore?.initialStatusBarStyle)!,
-            startPositionY: (dataStore?.startPositionY)!,
+            delegate: tempDataStore.delegate,
+            id: tempDataStore.id,
+            closeSpeed: tempDataStore.closeSpeed,
+            hasNavBar: tempDataStore.hasNavBar,
+            parentVcName: tempDataStore.parentVcName,
+            initialStatusBarStyle: tempDataStore.initialStatusBarStyle,
+            startPositionY: tempDataStore.startPositionY,
             immediately: immediately!
         )
         interactor?.dismissAlert(request: tempRequest)
@@ -237,12 +236,11 @@ class AnyAlertViewController: UIViewController
 
 // MARK: -
 
-extension AnyAlertViewController: AnyAlertDisplayLogic
-{
+extension AnyAlertViewController: AnyAlertDisplayLogic {
+    
     // MARK: AnyAlertDisplayLogic
     
-    func setStyle(viewModel: AnyAlertAction.Display.ViewModel)
-    {
+    func setStyle(viewModel: AnyAlertAction.Display.ViewModel) {
         alertContainer?.backgroundColor = viewModel.backgroundColor
         messageLabel?.font = viewModel.messageFont
         messageLabel?.textColor = viewModel.messageColor
@@ -250,37 +248,30 @@ extension AnyAlertViewController: AnyAlertDisplayLogic
         closeButton?.setTitleColor(viewModel.closeButtonColor, for: .normal)
     }
     
-    func setMessage(viewModel: AnyAlertAction.Display.ViewModel)
-    {
+    func setMessage(viewModel: AnyAlertAction.Display.ViewModel) {
         messageLabel?.text = viewModel.message
     }
     
-    func setCloseButtonVisibility(viewModel: AnyAlertAction.Display.ViewModel)
-    {
+    func setCloseButtonVisibility(viewModel: AnyAlertAction.Display.ViewModel) {
         closeButton?.isHidden = viewModel.shouldHideCloseButton
     }
     
-    func setStatusBarStyle(viewModel: AnyAlertAction.Display.ViewModel)
-    {
+    func setStatusBarStyle(viewModel: AnyAlertAction.Display.ViewModel) {
         UIApplication.shared.statusBarStyle = viewModel.statusBarStyle
     }
     
-    func showAlert(viewModel: AnyAlertAction.Display.ViewModel)
-    {
+    func showAlert(viewModel: AnyAlertAction.Display.ViewModel) {
         self.topConstraint?.constant = CGFloat(viewModel.endPositionY)
-        
         UIView.animate(withDuration: viewModel.openSpeed) {
             self.view.layoutIfNeeded()
         }
     }
     
-    func hideAlert(viewModel: AnyAlertAction.Dismiss.ViewModel)
-    {
+    func hideAlert(viewModel: AnyAlertAction.Dismiss.ViewModel) {
         self.view.isUserInteractionEnabled = false
         
         self.topConstraint?.constant = CGFloat(viewModel.startPositionY)
-        
-        if viewModel.immediately! {
+        if let immediately = viewModel.immediately, immediately {
             self.view.layoutIfNeeded()
         } else {
             UIView.animate(withDuration: viewModel.closeSpeed) {

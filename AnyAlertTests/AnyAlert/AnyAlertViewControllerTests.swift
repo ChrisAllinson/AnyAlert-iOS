@@ -12,9 +12,9 @@
 import XCTest
 import UIKit
 
-class AnyAlertViewControllerTests: XCTestCase
-{
-    // MARK: Instance variables
+class AnyAlertViewControllerTests: XCTestCase {
+    
+    // MARK: instance variables
     
     var window: UIWindow!
     var vc: UIViewController!
@@ -26,17 +26,15 @@ class AnyAlertViewControllerTests: XCTestCase
     
     
     
-    // MARK: Lifecycle methods
+    // MARK: lifecycle methods
     
-    override func setUp()
-    {
+    override func setUp() {
         super.setUp()
         
         setupMockDelegate()
     }
     
-    override func tearDown()
-    {
+    override func tearDown() {
         window = nil
         vc = nil
         vcName = nil
@@ -52,15 +50,13 @@ class AnyAlertViewControllerTests: XCTestCase
     
     
     
-    // MARK: Setup
+    // MARK: setup
     
-    func setupMockDelegate()
-    {
+    func setupMockDelegate() {
         mockDelegate = MockAnyAlertDelegate()
     }
     
-    func setupViewController()
-    {
+    func setupViewController() {
         vc = UIViewController()
         vcName = vc.debugDescription
         
@@ -69,8 +65,7 @@ class AnyAlertViewControllerTests: XCTestCase
         window.makeKeyAndVisible()
     }
     
-    func setupNavController()
-    {
+    func setupNavController() {
         vc = UIViewController()
         vcName = vc.debugDescription
         
@@ -81,8 +76,7 @@ class AnyAlertViewControllerTests: XCTestCase
         window.makeKeyAndVisible()
     }
     
-    func setupBasicAlert() -> AnyAlert
-    {
+    func setupBasicAlert() -> AnyAlert {
         return AnyAlert(
             message: "Test Message",
             backgroundColor: UIColor.white,
@@ -99,8 +93,7 @@ class AnyAlertViewControllerTests: XCTestCase
         )
     }
     
-    func setupSelfDismissingAlert() -> AnyAlert
-    {
+    func setupSelfDismissingAlert() -> AnyAlert {
         return AnyAlert(
             message: "Test Message",
             backgroundColor: UIColor.white,
@@ -121,13 +114,13 @@ class AnyAlertViewControllerTests: XCTestCase
     
     // MARK: Spies
     
-    class AnyAlertInteractorSpy: AnyAlertDataStore, AnyAlertBusinessLogic
-    {
+    class AnyAlertInteractorSpy: AnyAlertDataStore, AnyAlertBusinessLogic {
+        
         var wasDisplayAlertCalled: Bool = false
         var wasDismissAlertCalled: Bool = false
         
         
-        
+
         // AlertDataStore
         
         var delegate: AnyAlertDelegate!
@@ -162,25 +155,22 @@ class AnyAlertViewControllerTests: XCTestCase
         
         // AlertBusinessLogic
         
-        func displayAlert(request: AnyAlertAction.Display.Request)
-        {
+        func displayAlert(request: AnyAlertAction.Display.Request) {
             wasDisplayAlertCalled = true
         }
         
-        func dismissAlert(request: AnyAlertAction.Dismiss.Request)
-        {
+        func dismissAlert(request: AnyAlertAction.Dismiss.Request) {
             wasDismissAlertCalled = true
         }
     }
     
     // MARK: Mocks
     
-    class MockAnyAlertDelegate: AnyAlertDelegate
-    {
+    class MockAnyAlertDelegate: AnyAlertDelegate {
+        
         var wasPopAlertCalled = false
         
-        func popAlert(id: String, parentVcName: String)
-        {
+        func popAlert(id: String, parentVcName: String) {
             wasPopAlertCalled = true
         }
     }
@@ -189,8 +179,8 @@ class AnyAlertViewControllerTests: XCTestCase
     
     // MARK: Tests
     
-    func testInit_DoesSelfDismiss()
-    {
+    func testInit_DoesSelfDismiss() {
+        
         // given
         
         setupViewController()
@@ -247,8 +237,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue(sut.view.frame == CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 200.0), "Alert frame set correctly")
     }
     
-    func testInit_DoesNotSelfDismiss()
-    {
+    func testInit_DoesNotSelfDismiss() {
+        
         // given
         
         setupViewController()
@@ -307,8 +297,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue(sut.view.frame == CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 200.0), "Alert frame set correctly")
     }
     
-    func testViewDidLoad_DoesSelfDismiss()
-    {
+    func testViewDidLoad_DoesSelfDismiss() {
+        
         // given
         
         setupViewController()
@@ -335,8 +325,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.closeButton?.isHidden)!, "closeButton hides correctly")
     }
     
-    func testViewDidLoad_DoesNotSelfDismiss()
-    {
+    func testViewDidLoad_DoesNotSelfDismiss() {
+        
         // given
         
         setupViewController()
@@ -363,8 +353,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertFalse((sut.closeButton?.isHidden)!, "closeButton shows correctly")
     }
     
-    func testViewWillAppear_NoNavBar()
-    {
+    func testViewWillAppear_NoNavBar() {
+        
         // given
         
         setupViewController()
@@ -393,8 +383,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.topConstraint?.constant)! == (-1.0 * sutHeight), "topConstraint set correctly")
     }
     
-    func testViewWillAppear_NavBar()
-    {
+    func testViewWillAppear_NavBar() {
+        
         // given
         
         setupNavController()
@@ -423,8 +413,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.topConstraint?.constant)! == (-1.0 * sutHeight), "topConstraint set correctly")
     }
     
-    func testViewDidAppear_NoNavBar()
-    {
+    func testViewDidAppear_NoNavBar() {
+        
         // given
         
         setupViewController()
@@ -457,8 +447,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.topConstraint?.constant)! == (-1.0 * sutHeight), "topConstraint set correctly")
     }
     
-    func testViewDidAppear_NavBar()
-    {
+    func testViewDidAppear_NavBar() {
+        
         // given
         
         setupNavController()
@@ -496,8 +486,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.topConstraint?.constant)! == (-1.0 * sutHeight), "topConstraint set correctly")
     }
     
-    func testViewWillDisappear()
-    {
+    func testViewWillDisappear() {
+        
         // given
         
         setupViewController()
@@ -535,8 +525,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue(interactorSpy.wasDismissAlertCalled, "Interactor dismissAlert() called correctly")
     }
     
-    func testDoesSelfDismiss()
-    {
+    func testDoesSelfDismiss() {
+        
         // given
         
         setupViewController()
@@ -570,8 +560,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue(mockDelegate.wasPopAlertCalled, "mockDelegate popAlert() called correctly")
     }
     
-    func testDoesNotSelfDismiss()
-    {
+    func testDoesNotSelfDismiss() {
+        
         // given
         
         setupViewController()
@@ -605,8 +595,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertFalse(mockDelegate.wasPopAlertCalled, "mockDelegate popAlert() not called correctly")
     }
     
-    func testClosePressed()
-    {
+    func testClosePressed() {
+        
         // given
         
         setupViewController()
@@ -635,8 +625,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue(interactorSpy.wasDismissAlertCalled, "Interactor dismissAlert() called correctly")
     }
     
-    func testAlertTapped()
-    {
+    func testAlertTapped() {
+        
         // given
         
         setupViewController()
@@ -651,7 +641,7 @@ class AnyAlertViewControllerTests: XCTestCase
             parentVcName: vcName,
             initialStatusBarStyle: .default,
             hasNavBar: false,
-            tapHandler: { _ in
+            tapHandler: {
                 tempBool = true
             }
         )
@@ -667,8 +657,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue(tempBool, "tapHandler functions correctly")
     }
     
-    func testSetMessage()
-    {
+    func testSetMessage() {
+        
         // given
         
         setupViewController()
@@ -707,8 +697,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.messageLabel?.text)! == "new message", "messageLabel set correctly")
     }
     
-    func testSetCloseButtonVisibility_Show()
-    {
+    func testSetCloseButtonVisibility_Show() {
+        
         // given
         
         setupViewController()
@@ -747,8 +737,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertFalse((sut.closeButton?.isHidden)!, "closeButton shows correctly")
     }
     
-    func testSetCloseButtonVisibility_Hide()
-    {
+    func testSetCloseButtonVisibility_Hide() {
+        
         // given
         
         setupViewController()
@@ -787,8 +777,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.closeButton?.isHidden)!, "closeButton hides correctly")
     }
     
-    func testSetStatusBarStyle()
-    {
+    func testSetStatusBarStyle() {
+        
         // given
         
         setupViewController()
@@ -827,8 +817,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue(UIApplication.shared.statusBarStyle == .lightContent, "statusBarStyle set correctly")
     }
     
-    func testShowAlert()
-    {
+    func testShowAlert() {
+        
         // given
         
         setupViewController()
@@ -868,8 +858,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.topConstraint?.constant)! == -26.0, "topConstraint set correctly")
     }
     
-    func testShowAlert_NavBar()
-    {
+    func testShowAlert_NavBar() {
+        
         // given
         
         setupNavController()
@@ -909,8 +899,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.topConstraint?.constant)! == -26.0, "topConstraint set correctly")
     }
     
-    func testHideAlert()
-    {
+    func testHideAlert() {
+        
         // given
         
         setupViewController()
@@ -941,8 +931,8 @@ class AnyAlertViewControllerTests: XCTestCase
         XCTAssertTrue((sut.topConstraint?.constant)! == -126.0, "topConstraint set correctly")
     }
     
-    func testHideAlert_NavBar()
-    {
+    func testHideAlert_NavBar() {
+        
         // given
         
         setupNavController()

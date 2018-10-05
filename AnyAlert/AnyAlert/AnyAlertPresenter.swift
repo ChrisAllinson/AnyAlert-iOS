@@ -1,6 +1,6 @@
 //
 //  AnyAlertPresenter.swift
-//  AnyApp
+//  AnyAlert
 //
 //  Created by Chris Allinson on 2018-01-20.
 //  Copyright (c) 2018 Chris Allinson. All rights reserved.
@@ -13,8 +13,7 @@
 import UIKit
 
 
-protocol AnyAlertPresentationLogic
-{
+protocol AnyAlertPresentationLogic {
     func displayAlert(response: AnyAlertAction.Display.Response)
     func dismissAlert(response: AnyAlertAction.Dismiss.Response)
 }
@@ -22,18 +21,17 @@ protocol AnyAlertPresentationLogic
 
 // MARK: -
 
-class AnyAlertPresenter
-{
-    // MARK: Instance variables
+class AnyAlertPresenter {
+    
+    // MARK: instance variables
     
     weak var viewController: AnyAlertDisplayLogic?
     
     
     
-    // MARK: Private methods
+    // MARK: private methods
     
-    private func hideAlert(startPositionY: Double, closeSpeed: Double, immediately: Bool)
-    {
+    private func hideAlert(startPositionY: Double, closeSpeed: Double, immediately: Bool) {
         let viewModel: AnyAlertAction.Dismiss.ViewModel = AnyAlertAction.Dismiss.ViewModel(
             closeSpeed: closeSpeed,
             startPositionY: startPositionY,
@@ -42,8 +40,7 @@ class AnyAlertPresenter
         self.viewController?.hideAlert(viewModel: viewModel)
     }
     
-    private func updateStatusBar(id: String, immediately: Bool, hasNavBar: Bool, closeSpeed: Double, parentVcName: String, initialStatusBarStyle: UIStatusBarStyle)
-    {
+    private func updateStatusBar(id: String, immediately: Bool, hasNavBar: Bool, closeSpeed: Double, parentVcName: String, initialStatusBarStyle: UIStatusBarStyle) {
         guard !immediately else {
             return
         }
@@ -86,20 +83,14 @@ class AnyAlertPresenter
         }
     }
     
-    private func popAlert(id: String, immediately: Bool, delegate: AnyAlertDelegate, parentVcName: String, closeSpeed: Double)
-    {
+    private func popAlert(id: String, immediately: Bool, delegate: AnyAlertDelegate, parentVcName: String, closeSpeed: Double) {
         let tempTime: DispatchTime = immediately ? DispatchTime.now() : DispatchTime.now() + closeSpeed
         DispatchQueue.main.asyncAfter(deadline: tempTime) {
             delegate.popAlert(id: id, parentVcName: parentVcName)
         }
     }
     
-    
-    
-    // MARK: Fileprivate methods
-    
-    fileprivate func performDismissAlert(delegate: AnyAlertDelegate, id: String, parentVcName: String, hasNavBar: Bool, initialStatusBarStyle: UIStatusBarStyle, startPositionY: Double, closeSpeed: Double, immediately: Bool? = false)
-    {
+    private func performDismissAlert(delegate: AnyAlertDelegate, id: String, parentVcName: String, hasNavBar: Bool, initialStatusBarStyle: UIStatusBarStyle, startPositionY: Double, closeSpeed: Double, immediately: Bool? = false) {
         hideAlert(startPositionY: startPositionY, closeSpeed: closeSpeed, immediately: immediately!)
         updateStatusBar(id: id, immediately: immediately!, hasNavBar: hasNavBar, closeSpeed: closeSpeed, parentVcName: parentVcName, initialStatusBarStyle: initialStatusBarStyle)
         popAlert(id: id, immediately: immediately!, delegate: delegate, parentVcName: parentVcName, closeSpeed: closeSpeed)
@@ -109,12 +100,11 @@ class AnyAlertPresenter
 
 // MARK: - 
 
-extension AnyAlertPresenter: AnyAlertPresentationLogic
-{
+extension AnyAlertPresenter: AnyAlertPresentationLogic {
+    
     // MARK: AnyAlertPresentationLogic
     
-    func displayAlert(response: AnyAlertAction.Display.Response)
-    {
+    func displayAlert(response: AnyAlertAction.Display.Response) {
         let viewModel: AnyAlertAction.Display.ViewModel = AnyAlertAction.Display.ViewModel(
             message: response.message,
             backgroundColor: response.backgroundColor,
@@ -161,8 +151,7 @@ extension AnyAlertPresenter: AnyAlertPresentationLogic
         }
     }
     
-    func dismissAlert(response: AnyAlertAction.Dismiss.Response)
-    {
+    func dismissAlert(response: AnyAlertAction.Dismiss.Response) {
         performDismissAlert(
             delegate: response.delegate,
             id: response.id,

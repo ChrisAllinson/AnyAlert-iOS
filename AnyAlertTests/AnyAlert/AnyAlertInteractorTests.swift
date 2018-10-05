@@ -11,27 +11,25 @@
 
 import XCTest
 
-class AlertInteractorTests: XCTestCase
-{
-    // MARK: Instance variables
+class AlertInteractorTests: XCTestCase {
+    
+    // MARK: instance variables
     
     var sut: AnyAlertInteractor!
     var alertPresenterSpy: AnyAlertPresenterSpy!
     
     
     
-    // MARK: Lifecycle methods
+    // MARK: lifecycle methods
     
-    override func setUp()
-    {
+    override func setUp() {
         super.setUp()
         
         setupSut()
         setupSpy()
     }
     
-    override func tearDown()
-    {
+    override func tearDown() {
         sut = nil
         alertPresenterSpy = nil
         
@@ -40,25 +38,23 @@ class AlertInteractorTests: XCTestCase
     
     
     
-    // MARK: Setup
+    // MARK: setup
     
-    func setupSut()
-    {
+    func setupSut() {
         sut = AnyAlertInteractor()
     }
     
-    func setupSpy()
-    {
+    func setupSpy() {
         alertPresenterSpy = AnyAlertPresenterSpy()
         sut.presenter = alertPresenterSpy
     }
     
     
     
-    // MARK: Spies
+    // MARK: spies
     
-    class AnyAlertPresenterSpy: AnyAlertPresentationLogic
-    {
+    class AnyAlertPresenterSpy: AnyAlertPresentationLogic {
+        
         var wasDisplayAlertCalled: Bool = false
         var displayAlertResponse: AnyAlertAction.Display.Response?
         
@@ -66,16 +62,15 @@ class AlertInteractorTests: XCTestCase
         var dismissAlertResponse: AnyAlertAction.Dismiss.Response?
         
         
+        
         // AlertPresentationLogic
         
-        func displayAlert(response: AnyAlertAction.Display.Response)
-        {
+        func displayAlert(response: AnyAlertAction.Display.Response) {
             wasDisplayAlertCalled = true
             displayAlertResponse = response
         }
         
-        func dismissAlert(response: AnyAlertAction.Dismiss.Response)
-        {
+        func dismissAlert(response: AnyAlertAction.Dismiss.Response) {
             wasDismissAlertCalled = true
             dismissAlertResponse = response
         }
@@ -83,10 +78,10 @@ class AlertInteractorTests: XCTestCase
     
     
     
-    // MARK: Tests
+    // MARK: tests
     
-    func testDisplayAlert()
-    {
+    func testDisplayAlert() {
+        
         // given
         
         let tempRequest: AnyAlertAction.Display.Request = AnyAlertAction.Display.Request(
@@ -133,8 +128,8 @@ class AlertInteractorTests: XCTestCase
         XCTAssertTrue((alertPresenterSpy.displayAlertResponse?.endPositionY)! == 7.0, "endPositionY passed correctly")
     }
     
-    func testDismissAlert()
-    {
+    func testDismissAlert() {
+        
         // given
         
         let tempRequest: AnyAlertAction.Dismiss.Request = AnyAlertAction.Dismiss.Request(

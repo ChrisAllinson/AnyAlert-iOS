@@ -10,36 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    // MARK: Lifecycle methods
+    // MARK: lifecycle methods
     
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         UIApplication.shared.statusBarStyle = .default
-    }
-
-    override func didReceiveMemoryWarning()
-    {
-        super.didReceiveMemoryWarning()
     }
     
     
     
     // MARK: UI Events
     
-    @IBAction func showAlertPressed()
-    {
+    @IBAction func showAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
             message: "Test Message",
             backgroundColor: .green,
             statusBarStyle: .default,
-            messageFont: UIFont.systemFont(ofSize: 16.0),
+            messageFont: .systemFont(ofSize: 16.0),
             messageColor: .black,
-            closeButtonFont: UIFont.systemFont(ofSize: 16.0),
+            closeButtonFont: .systemFont(ofSize: 16.0),
             closeButtonColor: .black,
             height: 95.0,
             openSpeed: 0.5,
@@ -50,15 +40,14 @@ class ViewController: UIViewController {
         AnyAlertManager.show(tempAlert, from: self)
     }
     
-    @IBAction func showSelfDismissingAlertPressed()
-    {
+    @IBAction func showSelfDismissingAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
             message: "Test Message",
             backgroundColor: .purple,
             statusBarStyle: .lightContent,
-            messageFont: UIFont.systemFont(ofSize: 16.0),
+            messageFont: .systemFont(ofSize: 16.0),
             messageColor: .white,
-            closeButtonFont: UIFont.systemFont(ofSize: 16.0),
+            closeButtonFont: .systemFont(ofSize: 16.0),
             closeButtonColor: .white,
             height: 95.0,
             openSpeed: 0.5,

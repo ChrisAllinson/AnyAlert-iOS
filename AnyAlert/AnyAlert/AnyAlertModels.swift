@@ -1,6 +1,6 @@
 //
 //  AnyAlertModels.swift
-//  AnyApp
+//  AnyAlert
 //
 //  Created by Chris Allinson on 2018-01-20.
 //  Copyright (c) 2018 Chris Allinson. All rights reserved.
@@ -13,32 +13,30 @@
 import UIKit
 
 
-
 // MARK: -
 
-public struct AnyAlert
-{
-    public var message: String
+public class AnyAlert: NSObject {
     
-    public var backgroundColor: UIColor
-    public var statusBarStyle: UIStatusBarStyle
+    var message: String
     
-    public var messageFont: UIFont
-    public var messageColor: UIColor
-    public var closeButtonFont: UIFont
-    public var closeButtonColor: UIColor
+    var backgroundColor: UIColor
+    var statusBarStyle: UIStatusBarStyle
     
-    public var height: Double
+    var messageFont: UIFont
+    var messageColor: UIColor
+    var closeButtonFont: UIFont
+    var closeButtonColor: UIColor
     
-    public var openSpeed: Double
-    public var closeSpeed: Double
+    var height: Double
     
-    public var doesSelfDismiss: Bool
-    public var showFor: Double
+    var openSpeed: Double
+    var closeSpeed: Double
     
+    var doesSelfDismiss: Bool
+    var showFor: Double
     
-    public init(message: String, backgroundColor: UIColor, statusBarStyle: UIStatusBarStyle, messageFont: UIFont, messageColor: UIColor, closeButtonFont: UIFont, closeButtonColor: UIColor, height: Double, openSpeed: Double, closeSpeed: Double, doesSelfDismiss: Bool, showFor: Double)
-    {
+    public init(message: String, backgroundColor: UIColor, statusBarStyle: UIStatusBarStyle, messageFont: UIFont, messageColor: UIColor, closeButtonFont: UIFont, closeButtonColor: UIColor, height: Double, openSpeed: Double, closeSpeed: Double, doesSelfDismiss: Bool, showFor: Double) {
+        
         self.message = message
         
         self.backgroundColor = backgroundColor
@@ -60,17 +58,16 @@ public struct AnyAlert
 }
 
 
-
 // MARK: -
 
-enum AnyAlertAction
-{
+enum AnyAlertAction {
+    
     // MARK: -
     
-    enum Display
-    {
-        struct Request
-        {
+    enum Display {
+        
+        struct Request {
+            
             var delegate: AnyAlertDelegate
             
             var id: String
@@ -92,8 +89,9 @@ enum AnyAlertAction
             var startPositionY: Double
             var endPositionY: Double
         }
-        struct Response
-        {
+        
+        struct Response {
+            
             var delegate: AnyAlertDelegate
             
             var id: String
@@ -115,8 +113,9 @@ enum AnyAlertAction
             var startPositionY: Double
             var endPositionY: Double
         }
-        struct ViewModel
-        {
+        
+        struct ViewModel {
+            
             var message: String
             var backgroundColor: UIColor
             var statusBarStyle: UIStatusBarStyle
@@ -134,24 +133,10 @@ enum AnyAlertAction
     
     // MARK: -
     
-    enum Dismiss
-    {
-        struct Request
-        {
-            var delegate: AnyAlertDelegate!
+    enum Dismiss {
+        
+        struct Request {
             
-            var id: String
-            var closeSpeed: Double
-            
-            var hasNavBar: Bool
-            var parentVcName: String
-            var initialStatusBarStyle: UIStatusBarStyle
-            var startPositionY: Double
-            
-            var immediately: Bool?
-        }
-        struct Response
-        {
             var delegate: AnyAlertDelegate
             
             var id: String
@@ -164,8 +149,24 @@ enum AnyAlertAction
             
             var immediately: Bool?
         }
-        struct ViewModel
-        {
+        
+        struct Response {
+            
+            var delegate: AnyAlertDelegate
+            
+            var id: String
+            var closeSpeed: Double
+            
+            var hasNavBar: Bool
+            var parentVcName: String
+            var initialStatusBarStyle: UIStatusBarStyle
+            var startPositionY: Double
+            
+            var immediately: Bool?
+        }
+        
+        struct ViewModel {
+            
             var closeSpeed: Double
             
             var startPositionY: Double

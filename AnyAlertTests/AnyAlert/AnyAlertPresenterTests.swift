@@ -11,9 +11,9 @@
 
 import XCTest
 
-class AnyAlertPresenterTests: XCTestCase
-{
-    // MARK: Instance variables
+class AnyAlertPresenterTests: XCTestCase {
+    
+    // MARK: instance variables
     
     var window: UIWindow!
     var vc: UIViewController!
@@ -25,18 +25,16 @@ class AnyAlertPresenterTests: XCTestCase
     
     
     
-    // MARK: Lifecycle methods
+    // MARK: lifecycle methods
     
-    override func setUp()
-    {
+    override func setUp() {
         super.setUp()
         
         setupSut()
         setupSpy()
     }
     
-    override func tearDown()
-    {
+    override func tearDown() {
         window = nil
         vc = nil
         vcName = nil
@@ -52,10 +50,9 @@ class AnyAlertPresenterTests: XCTestCase
     
     
     
-    // MARK: Setup
+    // MARK: setup
     
-    func setupViewController()
-    {
+    func setupViewController() {
         vc = UIViewController()
         vcName = vc.debugDescription
         
@@ -64,8 +61,7 @@ class AnyAlertPresenterTests: XCTestCase
         window.makeKeyAndVisible()
     }
     
-    func setupNavController()
-    {
+    func setupNavController() {
         vc = UIViewController()
         vcName = vc.debugDescription
         
@@ -76,23 +72,21 @@ class AnyAlertPresenterTests: XCTestCase
         window.makeKeyAndVisible()
     }
     
-    func setupSut()
-    {
+    func setupSut() {
         sut = AnyAlertPresenter()
     }
     
-    func setupSpy()
-    {
+    func setupSpy() {
         viewControllerSpy = AnyAlertViewControllerSpy()
         sut.viewController = viewControllerSpy
     }
     
     
     
-    // MARK: Spies
+    // MARK: spies
     
-    class AnyAlertViewControllerSpy: AnyAlertDisplayLogic
-    {
+    class AnyAlertViewControllerSpy: AnyAlertDisplayLogic {
+        
         var wasSetStyleCalled: Bool = false
         var backgroundColor: UIColor?
         var messageFont: UIFont?
@@ -117,10 +111,10 @@ class AnyAlertPresenterTests: XCTestCase
         var immediately: Bool!
         
         
+        
         // AlertDisplayLogic
         
-        func setStyle(viewModel: AnyAlertAction.Display.ViewModel)
-        {
+        func setStyle(viewModel: AnyAlertAction.Display.ViewModel) {
             wasSetStyleCalled = true
             backgroundColor = viewModel.backgroundColor
             messageFont = viewModel.messageFont
@@ -129,32 +123,27 @@ class AnyAlertPresenterTests: XCTestCase
             closeButtonColor = viewModel.closeButtonColor
         }
         
-        func setMessage(viewModel: AnyAlertAction.Display.ViewModel)
-        {
+        func setMessage(viewModel: AnyAlertAction.Display.ViewModel) {
             wasSetMessageCalled = true
             message = viewModel.message
         }
         
-        func setCloseButtonVisibility(viewModel: AnyAlertAction.Display.ViewModel)
-        {
+        func setCloseButtonVisibility(viewModel: AnyAlertAction.Display.ViewModel) {
             wasSetCloseButtonVisibilityCalled = true
             shouldHideCloseButton = viewModel.shouldHideCloseButton
         }
         
-        func setStatusBarStyle(viewModel: AnyAlertAction.Display.ViewModel)
-        {
+        func setStatusBarStyle(viewModel: AnyAlertAction.Display.ViewModel) {
             wasSetStatusBarStyleCalled = true
             statusBarStyle = viewModel.statusBarStyle
         }
         
-        func showAlert(viewModel: AnyAlertAction.Display.ViewModel)
-        {
+        func showAlert(viewModel: AnyAlertAction.Display.ViewModel) {
             wasShowAlertCalled = true
             openSpeed = viewModel.openSpeed
         }
         
-        func hideAlert(viewModel: AnyAlertAction.Dismiss.ViewModel)
-        {
+        func hideAlert(viewModel: AnyAlertAction.Dismiss.ViewModel) {
             wasHideAlertCalled = true
             closeSpeed = viewModel.closeSpeed
             immediately = viewModel.immediately
@@ -163,12 +152,12 @@ class AnyAlertPresenterTests: XCTestCase
     
     
     
-    // MARK: Tests
+    // MARK: tests
     
     // MARK: Display
     
-    func testDisplayAlert()
-    {
+    func testDisplayAlert() {
+        
         // given
         
         let tempResponse: AnyAlertAction.Display.Response = AnyAlertAction.Display.Response(
@@ -229,8 +218,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertFalse(viewControllerSpy.wasHideAlertCalled, "hideAlert() not called correctly")
     }
     
-    func testDisplayAlert_NavBar()
-    {
+    func testDisplayAlert_NavBar() {
+        
         // given
         
         let tempResponse: AnyAlertAction.Display.Response = AnyAlertAction.Display.Response(
@@ -290,8 +279,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertFalse(viewControllerSpy.wasHideAlertCalled, "hideAlert() not called correctly")
     }
     
-    func testDisplayAlert_SelfDismiss()
-    {
+    func testDisplayAlert_SelfDismiss() {
+        
         // given
         
         let tempResponse: AnyAlertAction.Display.Response = AnyAlertAction.Display.Response(
@@ -340,8 +329,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertTrue(viewControllerSpy.closeSpeed == 0.5, "closeSpeed set correctly")
     }
     
-    func testDisplayAlert_SelfDismiss_NavBar()
-    {
+    func testDisplayAlert_SelfDismiss_NavBar() {
+        
         // given
         
         let tempResponse: AnyAlertAction.Display.Response = AnyAlertAction.Display.Response(
@@ -393,8 +382,8 @@ class AnyAlertPresenterTests: XCTestCase
     
     // MARK: Dismiss
     
-    func testDismissAlert_HideAlertCalled()
-    {
+    func testDismissAlert_HideAlertCalled() {
+        
         // given
         
         let tempResponse: AnyAlertAction.Dismiss.Response = AnyAlertAction.Dismiss.Response(
@@ -426,8 +415,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertFalse(viewControllerSpy.immediately, "immediately passed correctly")
     }
     
-    func testDismissAlert_HideAlertCalled_Immediately()
-    {
+    func testDismissAlert_HideAlertCalled_Immediately() {
+        
         // given
         
         let tempResponse: AnyAlertAction.Dismiss.Response = AnyAlertAction.Dismiss.Response(
@@ -459,8 +448,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertTrue(viewControllerSpy.immediately, "immediately passed correctly")
     }
     
-    func testDismissAlert_UpdateStatusBar()
-    {
+    func testDismissAlert_UpdateStatusBar() {
+        
         // given
         
         setupViewController()
@@ -517,8 +506,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertTrue(viewControllerSpy.wasSetStatusBarStyleCalled, "setStatusBarStyle() called correctly")
     }
     
-    func testDismissAlert_UpdateStatusBar_NavBar()
-    {
+    func testDismissAlert_UpdateStatusBar_NavBar() {
+        
         // given
         
         setupNavController()
@@ -575,8 +564,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertFalse(viewControllerSpy.wasSetStatusBarStyleCalled, "setStatusBarStyle() not called correctly")
     }
     
-    func testDismissAlert_UpdateStatusBar_Immediately()
-    {
+    func testDismissAlert_UpdateStatusBar_Immediately() {
+        
         // given
         
         setupViewController()
@@ -633,8 +622,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertFalse(viewControllerSpy.wasSetStatusBarStyleCalled, "setStatusBarStyle() not called correctly")
     }
     
-    func testDismissAlert_UpdateStatusBar_Pop()
-    {
+    func testDismissAlert_UpdateStatusBar_Pop() {
+        
         // given
         
         setupViewController()
@@ -707,8 +696,8 @@ class AnyAlertPresenterTests: XCTestCase
         XCTAssertTrue(viewControllerSpy.statusBarStyle == .lightContent, "Status bar style set correctly")
     }
     
-    func testDismissAlert_UpdateStatusBar_MultiplePop()
-    {
+    func testDismissAlert_UpdateStatusBar_MultiplePop() {
+        
         // given
         
         setupViewController()
