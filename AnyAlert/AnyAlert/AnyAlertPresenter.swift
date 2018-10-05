@@ -90,7 +90,11 @@ class AnyAlertPresenter {
         }
     }
     
-    private func performDismissAlert(delegate: AnyAlertDelegate, id: String, parentVcName: String, hasNavBar: Bool, initialStatusBarStyle: UIStatusBarStyle, startPositionY: Double, closeSpeed: Double, immediately: Bool? = false) {
+    
+    
+    // MARK: fileprivate methods
+    
+    fileprivate func performDismissAlert(delegate: AnyAlertDelegate, id: String, parentVcName: String, hasNavBar: Bool, initialStatusBarStyle: UIStatusBarStyle, startPositionY: Double, closeSpeed: Double, immediately: Bool? = false) {
         hideAlert(startPositionY: startPositionY, closeSpeed: closeSpeed, immediately: immediately!)
         updateStatusBar(id: id, immediately: immediately!, hasNavBar: hasNavBar, closeSpeed: closeSpeed, parentVcName: parentVcName, initialStatusBarStyle: initialStatusBarStyle)
         popAlert(id: id, immediately: immediately!, delegate: delegate, parentVcName: parentVcName, closeSpeed: closeSpeed)
