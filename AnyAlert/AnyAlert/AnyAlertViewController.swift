@@ -92,6 +92,8 @@ class AnyAlertViewController: UIViewController {
                 if let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets {
                     let isPhoneX = safeAreaInsets.top > CGFloat(0.0) || safeAreaInsets != .zero
                     vc.dataStore?.endPositionY = isPhoneX ? -10.0 : -26.0
+                } else {
+                    vc.dataStore?.endPositionY = -26.0
                 }
             } else {
                 vc.dataStore?.endPositionY = -26.0
