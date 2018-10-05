@@ -13,14 +13,12 @@
 import UIKit
 
 
-protocol AnyAlertBusinessLogic
-{
+protocol AnyAlertBusinessLogic {
     func displayAlert(request: AnyAlertAction.Display.Request)
     func dismissAlert(request: AnyAlertAction.Dismiss.Request)
 }
 
-protocol AnyAlertDataStore
-{
+protocol AnyAlertDataStore {
     var delegate: AnyAlertDelegate! { get set }
     
     var id: String { get set }
@@ -52,9 +50,9 @@ protocol AnyAlertDataStore
 
 // MARK: -
 
-class AnyAlertInteractor: AnyAlertDataStore
-{
-    // MARK: Instance variables
+class AnyAlertInteractor: AnyAlertDataStore {
+    
+    // MARK: instance variables
     
     var presenter: AnyAlertPresentationLogic?
     
@@ -93,12 +91,11 @@ class AnyAlertInteractor: AnyAlertDataStore
 
 // MARK: -
 
-extension AnyAlertInteractor: AnyAlertBusinessLogic
-{
+extension AnyAlertInteractor: AnyAlertBusinessLogic {
+    
     // MARK: AnyAlertBusinessLogic
     
-    func displayAlert(request: AnyAlertAction.Display.Request)
-    {
+    func displayAlert(request: AnyAlertAction.Display.Request) {
         let tempResponse: AnyAlertAction.Display.Response = AnyAlertAction.Display.Response(
             delegate: request.delegate,
             id: request.id,
@@ -122,8 +119,7 @@ extension AnyAlertInteractor: AnyAlertBusinessLogic
         presenter?.displayAlert(response: tempResponse)
     }
     
-    func dismissAlert(request: AnyAlertAction.Dismiss.Request)
-    {
+    func dismissAlert(request: AnyAlertAction.Dismiss.Request) {
         let tempResponse: AnyAlertAction.Dismiss.Response = AnyAlertAction.Dismiss.Response(
             delegate: request.delegate,
             id: request.id,

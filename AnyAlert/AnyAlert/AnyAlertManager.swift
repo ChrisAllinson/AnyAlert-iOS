@@ -10,27 +10,24 @@ import Foundation
 import UIKit
 
 
-protocol AnyAlertManagerDataStore
-{
+protocol AnyAlertManagerDataStore {
     var alerts: Dictionary<String, [AnyAlertViewController]> { get set }
 }
 
-protocol AnyAlertManagerInput
-{
+public protocol AnyAlertManagerInput {
     static func show(_ alert: AnyAlert, from vc: UIViewController)
 }
 
-protocol AnyAlertDelegate
-{
+protocol AnyAlertDelegate {
     func popAlert(id: String, parentVcName: String)
 }
 
 
 // MARK: -
 
-public class AnyAlertManager: AnyAlertManagerDataStore
-{
-    // MARK: Singleton instance variables
+public class AnyAlertManager: AnyAlertManagerDataStore {
+    
+    // MARK: singleton instance variables
     
     static var shared: AnyAlertManager = AnyAlertManager()
     
@@ -43,10 +40,9 @@ public class AnyAlertManager: AnyAlertManagerDataStore
     
     
     
-    // MARK: Fileprivate methods
+    // MARK: private methods
     
-    fileprivate func initCustom(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil)
-    {
+    private func initCustom(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
         let vcName = vc.debugDescription
         
         if initialStatusBarStyles[vcName] == nil {
@@ -112,8 +108,7 @@ public class AnyAlertManager: AnyAlertManagerDataStore
         ])
     }
     
-    fileprivate func vcHasNavBar(_ vc: UIViewController) -> Bool
-    {
+    private func vcHasNavBar(_ vc: UIViewController) -> Bool {
         if let _ = vc.navigationController {
             let isNavBarHidden: Bool = (vc.navigationController?.isNavigationBarHidden)!
             return !isNavBarHidden
@@ -125,17 +120,15 @@ public class AnyAlertManager: AnyAlertManagerDataStore
 
 // MARK: -
 
-extension AnyAlertManager: AnyAlertManagerInput
-{
+extension AnyAlertManager: AnyAlertManagerInput {
+    
     // MARK: AnyAlertManagerInput
     
-    public static func show(_ alert: AnyAlert, from vc: UIViewController)
-    {
+    public static func show(_ alert: AnyAlert, from vc: UIViewController) {
         shared.initCustom(alert: alert, vc: vc)
     }
     
-    public static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))
-    {
+    public static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void)) {
         shared.initCustom(alert: alert, vc: vc, tapHandler: tapHandler)
     }
 }
@@ -143,12 +136,11 @@ extension AnyAlertManager: AnyAlertManagerInput
 
 // MARK: -
 
-extension AnyAlertManager: AnyAlertDelegate
-{
+extension AnyAlertManager: AnyAlertDelegate {
+    
     // MARK: AnyAlertDelegate
     
-    func popAlert(id: String, parentVcName: String)
-    {
+    func popAlert(id: String, parentVcName: String) {
         if let _ = alerts[parentVcName] {
             for (index, alert) in alerts[parentVcName]!.enumerated() {
                 if (alert.dataStore?.id)! == id {

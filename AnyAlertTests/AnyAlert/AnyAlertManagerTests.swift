@@ -12,9 +12,9 @@
 import XCTest
 import UIKit
 
-class AnyAlertManagerTests: XCTestCase
-{
-    // MARK: Instance variables
+class AnyAlertManagerTests: XCTestCase {
+    
+    // MARK: instance variables
     
     var sut: AnyAlertManager!
     var window: UIWindow!
@@ -23,18 +23,16 @@ class AnyAlertManagerTests: XCTestCase
     
     
     
-    // MARK: Lifecycle methods
+    // MARK: lifecycle methods
     
-    override func setUp()
-    {
+    override func setUp() {
         super.setUp()
         
         setupSut()
         setupWindow()
     }
     
-    override func tearDown()
-    {
+    override func tearDown() {
         sut = nil
         window = nil
         vc = nil
@@ -47,14 +45,12 @@ class AnyAlertManagerTests: XCTestCase
     
     // MARK: Setup
     
-    func setupSut()
-    {
+    func setupSut() {
         sut = AnyAlertManager.shared
         sut.alerts = [:]
     }
     
-    func setupWindow()
-    {
+    func setupWindow() {
         window = UIWindow()
         vc = UIViewController()
         window.rootViewController = vc
@@ -65,11 +61,10 @@ class AnyAlertManagerTests: XCTestCase
     
     
     
+    // MARK: tests
     
-    // MARK: Tests
-    
-    func testShow()
-    {
+    func testShow() {
+        
         // given
         
         let tempAlert: AnyAlert = AnyAlert(
@@ -105,8 +100,8 @@ class AnyAlertManagerTests: XCTestCase
         XCTAssertNil(tempAlert2.dataStore?.tapHandler, "tapHandler not set correctly")
     }
     
-    func testShow_WithTapHandler()
-    {
+    func testShow_WithTapHandler() {
+        
         // given
         
         let tempAlert: AnyAlert = AnyAlert(
@@ -127,7 +122,7 @@ class AnyAlertManagerTests: XCTestCase
         
         // when
         
-        AnyAlertManager.show(tempAlert, from: vc, tapHandler: { _ in
+        AnyAlertManager.show(tempAlert, from: vc, tapHandler: { 
             // no op
         })
         
@@ -144,8 +139,8 @@ class AnyAlertManagerTests: XCTestCase
         XCTAssertNotNil(tempAlert2.dataStore?.tapHandler, "tapHandler set correctly")
     }
     
-    func testPopAlert()
-    {
+    func testPopAlert() {
+        
         // given
         
         let tempAlert1: AnyAlert = AnyAlert(
@@ -215,8 +210,8 @@ class AnyAlertManagerTests: XCTestCase
         XCTAssertTrue((window.rootViewController?.view.subviews[1])! == tempAlert4.view, "Alert view added to window correctly")
     }
     
-    func testPopAlert_DeleteKey()
-    {
+    func testPopAlert_DeleteKey() {
+        
         // given
         
         let tempAlert: AnyAlert = AnyAlert(
