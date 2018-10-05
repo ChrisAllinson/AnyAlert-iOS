@@ -1,6 +1,6 @@
 //
 //  AnyAlertPresenter.swift
-//  AnyApp
+//  AnyAlert
 //
 //  Created by Chris Allinson on 2018-01-20.
 //  Copyright (c) 2018 Chris Allinson. All rights reserved.
