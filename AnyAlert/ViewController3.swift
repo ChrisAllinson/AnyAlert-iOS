@@ -1,22 +1,19 @@
 //
-//  ViewController.swift
+//  ViewController3.swift
 //  AnyAlert
 //
-//  Created by Chris Allinson on 2018-02-17.
-//  Copyright © 2018 Chris Allinson. All rights reserved.
+//  Created by Chris Allinson on 2024-04-28.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    // MARK: lifecycle methods
+class ViewController3: UIViewController {
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIApplication.shared.statusBarStyle = .default
-    }
+    // MARK: status bar
+    
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
     
     
     
@@ -24,13 +21,13 @@ class ViewController: UIViewController {
     
     @IBAction func showAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
-            message: "Test Message",
-            backgroundColor: .green,
-            statusBarStyle: .default,
+            message: "Test Message Dark",
+            backgroundColor: .purple,
+            statusBarStyle: .lightContent,
             messageFont: .systemFont(ofSize: 16.0),
-            messageColor: .black,
+            messageColor: .white,
             closeButtonFont: .systemFont(ofSize: 16.0),
-            closeButtonColor: .black,
+            closeButtonColor: .white,
             height: 95.0,
             openSpeed: 0.5,
             closeSpeed: 0.5,
@@ -42,19 +39,25 @@ class ViewController: UIViewController {
     
     @IBAction func showSelfDismissingAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
-            message: "Test Message",
-            backgroundColor: .purple,
-            statusBarStyle: .lightContent,
+            message: "Test Message Light",
+            backgroundColor: .yellow,
+            statusBarStyle: .default,
             messageFont: .systemFont(ofSize: 16.0),
-            messageColor: .white,
+            messageColor: .black,
             closeButtonFont: .systemFont(ofSize: 16.0),
-            closeButtonColor: .white,
+            closeButtonColor: .black,
             height: 95.0,
             openSpeed: 0.5,
             closeSpeed: 0.5,
             doesSelfDismiss: true,
             showFor: 2.0
         )
-        AnyAlertManager.show(tempAlert, from: self)
+        AnyAlertManager.show(tempAlert, from: self) {
+            print("ALERT TAPPED")
+        }
+    }
+    
+    @IBAction func closePressed() {
+        self.dismiss(animated: true)
     }
 }

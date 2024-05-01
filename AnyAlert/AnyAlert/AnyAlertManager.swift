@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 protocol AnyAlertManagerDataStore {
     var alerts: Dictionary<String, [AnyAlertViewController]> { get set }
 }
@@ -20,12 +19,9 @@ public protocol AnyAlertManagerInput {
     static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))
 }
 
-
-// MARK: -
-
 public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
     
-    // MARK: singleton instance variables
+    // MARK: singleton instance
     
     static var shared: AnyAlertManager = AnyAlertManager()
     
@@ -38,30 +34,32 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
     
     
     
+    // MARK: lifecycle methods
+    
+    private override init() {}
+    
+    
+    
     // MARK: private methods
     
     private func vcHasNavBar(_ vc: UIViewController) -> Bool {
-        if let _ = vc.navigationController {
-            let isNavBarHidden: Bool = (vc.navigationController?.isNavigationBarHidden)!
+        if let navController = vc.navigationController {
+            let isNavBarHidden: Bool = navController.isNavigationBarHidden
             return !isNavBarHidden
         }
         return false
     }
     
-    
-    
-    // MARK: fileprivate methods
-    
-    fileprivate func initCustom(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
+    private func initialize(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
         let vcName = vc.debugDescription
         
         if initialStatusBarStyles[vcName] == nil {
-            initialStatusBarStyles[vcName] = UIApplication.shared.statusBarStyle
+            initialStatusBarStyles[vcName] = vc.preferredStatusBarStyle
         }
         
         let hasNavBar: Bool = vcHasNavBar(vc)
         
-        let tempVC: AnyAlertViewController = AnyAlertViewController.init(
+        let tempVC: AnyAlertViewController = AnyAlertViewController.initialize(
             delegate: self,
             alert: alert,
             parentVcName: vcName,
@@ -69,78 +67,41 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
             hasNavBar: hasNavBar,
             tapHandler: tapHandler
         )
+        guard let tempView = tempVC.view else {
+            return
+        }
         
         if alerts[vcName] == nil {
             alerts[vcName] = []
         }
         alerts[vcName]!.append(tempVC)
-
         
         vc.view.addSubview(tempVC.view)
-        
         vc.view.addConstraints([
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: vc.view,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0.0
-            ),
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: vc.view,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0.0
-            ),
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: vc.view,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0.0
-            ),
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .height,
-                relatedBy: .equal,
-                toItem: nil,
-                attribute: .height,
-                multiplier: 1,
-                constant: CGFloat((tempVC.dataStore?.height)!)
-            )
+            NSLayoutConstraint(item: tempView, attribute: .top, relatedBy: .equal, toItem: vc.view, attribute: .top, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: tempView, attribute: .leading, relatedBy: .equal, toItem: vc.view, attribute: .leading, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: tempView, attribute: .trailing, relatedBy: .equal, toItem: vc.view, attribute: .trailing, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: tempView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: CGFloat((tempVC.dataStore?.height)!))
         ])
     }
 }
 
 
-// MARK: -
-
+// MARK: - AnyAlertManagerInput
 extension AnyAlertManager: AnyAlertManagerInput {
     
-    // MARK: AnyAlertManagerInput
-    
     public static func show(_ alert: AnyAlert, from vc: UIViewController) {
-        shared.initCustom(alert: alert, vc: vc)
+        shared.initialize(alert: alert, vc: vc)
     }
     
     public static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void)) {
-        shared.initCustom(alert: alert, vc: vc, tapHandler: tapHandler)
+        shared.initialize(alert: alert, vc: vc, tapHandler: tapHandler)
     }
 }
 
 
-// MARK: -
-
+// MARK: - AnyAlertDelegate
 extension AnyAlertManager: AnyAlertDelegate {
-    
-    // MARK: AnyAlertDelegate
     
     func popAlert(id: String, parentVcName: String) {
         if let _ = alerts[parentVcName] {
