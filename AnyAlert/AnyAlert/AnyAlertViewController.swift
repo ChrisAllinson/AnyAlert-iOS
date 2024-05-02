@@ -101,8 +101,9 @@ class AnyAlertViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        resetTopConstraint()
-        resetLabelConstraint()
+        setHeightConstraint()
+        setTopConstraint()
+        setLabelConstraint()
         setTapGestureRecognizer()
     }
     
@@ -161,7 +162,16 @@ class AnyAlertViewController: UIViewController {
         presenter.viewController = viewController
     }
     
-    private func resetTopConstraint() {
+    private func setHeightConstraint() {
+        guard let height = dataStore?.height else {
+            return
+        }
+        
+        heightConstraint?.constant = CGFloat(height)
+        view.layoutIfNeeded()
+    }
+    
+    private func setTopConstraint() {
         guard let tempStartY = dataStore?.startPositionY else {
             return
         }
@@ -170,7 +180,7 @@ class AnyAlertViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
-    private func resetLabelConstraint() {
+    private func setLabelConstraint() {
         guard let hasNavBar = dataStore?.hasNavBar else {
             return
         }
