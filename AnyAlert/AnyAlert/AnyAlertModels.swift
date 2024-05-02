@@ -11,8 +11,9 @@
 import UIKit
 
 // MARK: - AnyAlert
-
 public class AnyAlert: NSObject {
+    
+    // MARK: instance properties
     
     var message: String
     
@@ -32,8 +33,11 @@ public class AnyAlert: NSObject {
     var doesSelfDismiss: Bool
     var showFor: Double
     
-    @objc
-    public init(message: String, backgroundColor: UIColor, statusBarStyle: UIStatusBarStyle, messageFont: UIFont, messageColor: UIColor, closeButtonFont: UIFont, closeButtonColor: UIColor, height: Double, openSpeed: Double, closeSpeed: Double, doesSelfDismiss: Bool, showFor: Double) {
+    
+    
+    // MARK: lifecycle methods
+    
+    @objc public init(message: String, backgroundColor: UIColor, statusBarStyle: UIStatusBarStyle, messageFont: UIFont, messageColor: UIColor, closeButtonFont: UIFont, closeButtonColor: UIColor, height: Double, openSpeed: Double, closeSpeed: Double, doesSelfDismiss: Bool, showFor: Double) {
         self.message = message
         
         self.backgroundColor = backgroundColor

@@ -9,28 +9,29 @@
 import Foundation
 import UIKit
 
-protocol AnyAlertManagerDataStore {
-    var alerts: Dictionary<String, [AnyAlertViewController]> { get set }
-}
-
-@objc
-public protocol AnyAlertManagerInput {
+@objc public protocol AnyAlertManagerInput {
+    static var shared: AnyAlertManager { get }
     static func show(_ alert: AnyAlert, from vc: UIViewController)
     static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))
 }
 
+protocol AnyAlertManagerDataStore {
+    var alerts: Dictionary<String, [AnyAlertViewController]> { get set }
+}
+
 public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
     
-    // MARK: singleton instance
+    // MARK: AnyAlertManagerInput
     
-    static var shared: AnyAlertManager = AnyAlertManager()
-    
-    
+    public static var shared: AnyAlertManager = AnyAlertManager()
     
     // MARK: AnyAlertManagerDataStore
     
     var alerts: Dictionary<String, [AnyAlertViewController]> = [:]
-    var initialStatusBarStyles: Dictionary<String, UIStatusBarStyle> = [:]
+    
+    // MARK: instance properties
+    
+    private var initialStatusBarStyles: Dictionary<String, UIStatusBarStyle> = [:]
     
     
     
@@ -42,14 +43,6 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
     
     // MARK: private methods
     
-    private func vcHasNavBar(_ vc: UIViewController) -> Bool {
-        if let navController = vc.navigationController {
-            let isNavBarHidden: Bool = navController.isNavigationBarHidden
-            return !isNavBarHidden
-        }
-        return false
-    }
-    
     private func initialize(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
         let vcName = vc.debugDescription
         
@@ -57,31 +50,29 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
             initialStatusBarStyles[vcName] = vc.preferredStatusBarStyle
         }
         
-        let hasNavBar: Bool = vcHasNavBar(vc)
-        
-        let tempVC: AnyAlertViewController = AnyAlertViewController.initialize(
+        let anyAlertVC: AnyAlertViewController = AnyAlertViewController.initialize(
             delegate: self,
             alert: alert,
             parentVcName: vcName,
             initialStatusBarStyle: initialStatusBarStyles[vcName]!,
-            hasNavBar: hasNavBar,
+            hasNavBar: vc.hasNavBar,
             tapHandler: tapHandler
         )
-        guard let tempView = tempVC.view else {
+        guard let anyAlertView = anyAlertVC.view else {
             return
         }
         
         if alerts[vcName] == nil {
             alerts[vcName] = []
         }
-        alerts[vcName]!.append(tempVC)
+        alerts[vcName]!.append(anyAlertVC)
         
-        vc.view.addSubview(tempVC.view)
+        vc.view.addSubview(anyAlertView)
         vc.view.addConstraints([
-            NSLayoutConstraint(item: tempView, attribute: .top, relatedBy: .equal, toItem: vc.view, attribute: .top, multiplier: 1, constant: 0.0),
-            NSLayoutConstraint(item: tempView, attribute: .leading, relatedBy: .equal, toItem: vc.view, attribute: .leading, multiplier: 1, constant: 0.0),
-            NSLayoutConstraint(item: tempView, attribute: .trailing, relatedBy: .equal, toItem: vc.view, attribute: .trailing, multiplier: 1, constant: 0.0),
-            NSLayoutConstraint(item: tempView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: CGFloat((tempVC.dataStore?.height)!))
+            NSLayoutConstraint(item: anyAlertView, attribute: .top, relatedBy: .equal, toItem: vc.view, attribute: .top, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: anyAlertView, attribute: .leading, relatedBy: .equal, toItem: vc.view, attribute: .leading, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: anyAlertView, attribute: .trailing, relatedBy: .equal, toItem: vc.view, attribute: .trailing, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: anyAlertView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: CGFloat((anyAlertVC.dataStore?.height)!))
         ])
     }
 }

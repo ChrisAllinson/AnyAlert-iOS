@@ -11,9 +11,9 @@ class ViewController3: UIViewController {
     
     // MARK: status bar
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     
     
@@ -41,7 +41,7 @@ class ViewController3: UIViewController {
         let tempAlert: AnyAlert = AnyAlert(
             message: "Test Message Light",
             backgroundColor: .yellow,
-            statusBarStyle: .default,
+            statusBarStyle: .darkContent,
             messageFont: .systemFont(ofSize: 16.0),
             messageColor: .black,
             closeButtonFont: .systemFont(ofSize: 16.0),

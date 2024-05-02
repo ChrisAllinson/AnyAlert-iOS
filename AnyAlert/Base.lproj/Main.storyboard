@@ -30,11 +30,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController1" customModule="AnyAlert" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="749"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rmn-2J-Ii1">
-                                <rect key="frame" x="64" y="368.66666666666669" width="265" height="35"/>
+                                <rect key="frame" x="64" y="317" width="265" height="35"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show Alert"/>
@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i19-vu-CIn">
-                                <rect key="frame" x="64" y="448.66666666666669" width="265" height="35"/>
+                                <rect key="frame" x="64" y="397" width="265" height="35"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show Self Dismissing Alert"/>
@@ -63,6 +63,7 @@
                             <constraint firstItem="rmn-2J-Ii1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="64" id="h6Q-Ff-m13"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="3M4-xe-mBZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -74,11 +75,11 @@
             <objects>
                 <viewController id="qWw-ma-7B2" customClass="ViewController0" customModule="AnyAlert" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vyO-bl-vma">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="749"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6s-k9-FuK">
-                                <rect key="frame" x="60" y="368.66666666666669" width="273" height="35"/>
+                                <rect key="frame" x="60" y="317" width="273" height="35"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Test 1"/>
@@ -88,7 +89,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uN1-x4-1gr">
-                                <rect key="frame" x="60" y="448.66666666666669" width="273" height="35"/>
+                                <rect key="frame" x="60" y="397" width="273" height="35"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Test 2"/>
@@ -109,6 +110,7 @@
                             <constraint firstItem="R6s-k9-FuK" firstAttribute="centerY" secondItem="vyO-bl-vma" secondAttribute="centerY" constant="-40" id="f7V-1T-C9j"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="DkA-DJ-CzO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9b-qG-2ci" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -165,6 +167,7 @@
                             <constraint firstItem="gkR-cK-W8m" firstAttribute="leading" secondItem="bJN-nb-wGO" secondAttribute="leading" constant="64" id="tqG-Pi-872"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="u5j-XQ-N2D"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K0a-li-IdW" sceneMemberID="firstResponder"/>
@@ -176,11 +179,11 @@
             <objects>
                 <viewController id="M3l-zd-XKz" customClass="ViewController2" customModule="AnyAlert" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YZy-k6-6aE">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="749"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZuM-LS-Z3I">
-                                <rect key="frame" x="64" y="408.66666666666669" width="265" height="35"/>
+                                <rect key="frame" x="64" y="357" width="265" height="35"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show Modal"/>
@@ -197,6 +200,7 @@
                             <constraint firstItem="ZuM-LS-Z3I" firstAttribute="centerY" secondItem="YZy-k6-6aE" secondAttribute="centerY" id="jmh-BT-1X0"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="n61-xR-fHX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFo-eH-otI" sceneMemberID="firstResponder"/>

@@ -29,6 +29,7 @@ protocol AnyAlertDataStore {
     var initialStatusBarStyle: UIStatusBarStyle! { get set }
     var doesSelfDismiss: Bool! { get set }
     
+    var safeAreaInsetsHeight: Double! { get set }
     var height: Double! { get set }
     
     var statusBarStyle: UIStatusBarStyle! { get set }
@@ -50,8 +51,6 @@ class AnyAlertInteractor: AnyAlertDataStore {
     
     var presenter: AnyAlertPresentationLogic?
     
-    
-    
     // MARK: AnyAlertDataStore
     
     var delegate: AnyAlertDelegate!
@@ -67,6 +66,7 @@ class AnyAlertInteractor: AnyAlertDataStore {
     var initialStatusBarStyle: UIStatusBarStyle!
     var doesSelfDismiss: Bool!
     
+    var safeAreaInsetsHeight: Double!
     var height: Double!
     
     var statusBarStyle: UIStatusBarStyle!

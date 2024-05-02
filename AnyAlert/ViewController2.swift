@@ -11,7 +11,7 @@ class ViewController2: UIViewController {
     
     // MARK: status bar
     
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .default
-//    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
 }
