@@ -19,20 +19,20 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfN-FU-rJg" userLabel="Alert Container">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-2g-DQn">
-                                        <rect key="frame" x="30" y="5" width="315" height="85"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-2g-DQn">
+                                        <rect key="frame" x="32" y="5" width="311" height="85"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <gestureRecognizers/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFr-bs-F0h" userLabel="Close Button">
-                                        <rect key="frame" x="345" y="32.5" width="30" height="30"/>
+                                        <rect key="frame" x="331" y="25.5" width="44" height="44"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="Ici-7G-rz8"/>
-                                            <constraint firstAttribute="height" constant="30" id="JK9-3R-Nfj"/>
+                                            <constraint firstAttribute="width" constant="44" id="Ici-7G-rz8"/>
+                                            <constraint firstAttribute="height" constant="44" id="JK9-3R-Nfj"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                         <state key="normal" title="X">
@@ -56,11 +56,11 @@
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MfN-FU-rJg" firstAttribute="leading" secondItem="UqV-qN-Oxy" secondAttribute="leading" id="0IB-eV-U4B"/>
-                            <constraint firstItem="Xbl-2g-DQn" firstAttribute="leading" secondItem="SnJ-Uy-M72" secondAttribute="leading" constant="30" id="2sy-Mw-Nb0"/>
+                            <constraint firstItem="Xbl-2g-DQn" firstAttribute="leading" secondItem="SnJ-Uy-M72" secondAttribute="leading" constant="32" id="2sy-Mw-Nb0"/>
                             <constraint firstItem="VFr-bs-F0h" firstAttribute="trailing" secondItem="SnJ-Uy-M72" secondAttribute="trailing" id="6n9-Rm-Ab5"/>
                             <constraint firstItem="MfN-FU-rJg" firstAttribute="trailing" secondItem="UqV-qN-Oxy" secondAttribute="trailing" id="LtC-0t-bv6"/>
                             <constraint firstItem="MfN-FU-rJg" firstAttribute="top" secondItem="UqV-qN-Oxy" secondAttribute="top" id="WEu-vd-9N5"/>
-                            <constraint firstItem="SnJ-Uy-M72" firstAttribute="trailing" secondItem="Xbl-2g-DQn" secondAttribute="trailing" constant="30" id="c5b-sD-UMB"/>
+                            <constraint firstItem="SnJ-Uy-M72" firstAttribute="trailing" secondItem="Xbl-2g-DQn" secondAttribute="trailing" constant="32" id="c5b-sD-UMB"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>

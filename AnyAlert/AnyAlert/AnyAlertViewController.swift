@@ -53,14 +53,6 @@ class AnyAlertViewController: UIViewController {
     }
     
     class func initialize(delegate: AnyAlertDelegate, alert: AnyAlert, parentVcName: String, initialStatusBarStyle: UIStatusBarStyle, hasNavBar: Bool, tapHandler: (() -> Void)? = nil) -> AnyAlertViewController {
-        let keyWindow = UIApplication.shared.connectedScenes
-            .filter({$0.activationState == .foregroundActive})
-            .map({$0 as? UIWindowScene})
-            .compactMap({$0})
-            .first?.windows
-            .filter({$0.isKeyWindow}).first
-        let safeAreaInsetsHeight = keyWindow?.safeAreaInsets.top ?? 0.0
-        
         let storyboard = UIStoryboard(name: "AnyAlert", bundle: Bundle(for: self.classForCoder()))
         let vc = storyboard.instantiateViewController(withIdentifier: "AnyAlertViewController") as! AnyAlertViewController
         vc.view.frame = CGRect(x: 0.0, y: 0.0, width: vc.view.frame.size.width, height: CGFloat(alert.height))
@@ -76,18 +68,18 @@ class AnyAlertViewController: UIViewController {
         vc.dataStore?.parentVcName = parentVcName
         vc.dataStore?.initialStatusBarStyle = initialStatusBarStyle
         vc.dataStore?.doesSelfDismiss = alert.doesSelfDismiss
-        vc.dataStore?.safeAreaInsetsHeight = safeAreaInsetsHeight
+        vc.dataStore?.safeAreaInsetsHeight = UIApplication.shared.safeAreaTopInsetsHeight
         if hasNavBar {
             vc.dataStore?.height = alert.height
         } else {
-            vc.dataStore?.height = alert.height + safeAreaInsetsHeight
+            vc.dataStore?.height = alert.height + UIApplication.shared.safeAreaTopInsetsHeight
         }
         vc.dataStore?.statusBarStyle = alert.statusBarStyle
         vc.dataStore?.hasNavBar = hasNavBar
         if hasNavBar {
             vc.dataStore?.startPositionY = -1.0 * alert.height
         } else {
-            vc.dataStore?.startPositionY = -1.0 * (alert.height + safeAreaInsetsHeight)
+            vc.dataStore?.startPositionY = -1.0 * (alert.height + UIApplication.shared.safeAreaTopInsetsHeight)
         }
         vc.dataStore?.endPositionY = 0.0
         vc.dataStore?.openSpeed = alert.openSpeed
@@ -260,9 +252,13 @@ extension AnyAlertViewController: AnyAlertDisplayLogic {
     
     func setStyle(viewModel: AnyAlertAction.Display.ViewModel) {
         alertContainer?.backgroundColor = viewModel.backgroundColor
-        messageLabel?.font = viewModel.messageFont
+        
+        messageLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: viewModel.messageFont)
+        messageLabel?.adjustsFontForContentSizeCategory = true
         messageLabel?.textColor = viewModel.messageColor
-        closeButton?.titleLabel?.font = viewModel.closeButtonFont
+        
+        closeButton?.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: viewModel.closeButtonFont)
+        closeButton?.titleLabel?.adjustsFontForContentSizeCategory = true
         closeButton?.setTitleColor(viewModel.closeButtonColor, for: .normal)
     }
     

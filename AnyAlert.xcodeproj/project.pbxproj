@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		564FE3D92BE19068000B69A7 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564FE3D82BE19068000B69A7 /* ViewController2.swift */; };
 		564FE3DB2BE2CC9B000B69A7 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564FE3DA2BE2CC9B000B69A7 /* UIViewController+Extensions.swift */; };
+		564FE3DD2BE46C41000B69A7 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 564FE3DC2BE46C41000B69A7 /* UIApplication+Extensions.swift */; };
 		567E542F2BDF14D100D46550 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E542E2BDF14D100D46550 /* AppDelegate.swift */; };
 		567E54312BDF14D100D46550 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E54302BDF14D100D46550 /* SceneDelegate.swift */; };
 		567E54332BDF14D100D46550 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E54322BDF14D100D46550 /* ViewController1.swift */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		564FE3D82BE19068000B69A7 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		564FE3DA2BE2CC9B000B69A7 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		564FE3DC2BE46C41000B69A7 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		567E542B2BDF14D100D46550 /* AnyAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnyAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		567E542E2BDF14D100D46550 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		567E54302BDF14D100D46550 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				567E545F2BDF174100D46550 /* AnyAlertInteractor.swift */,
 				567E54622BDF174100D46550 /* AnyAlertPresenter.swift */,
 				567E54632BDF174100D46550 /* AnyAlertViewController.swift */,
+				564FE3DC2BE46C41000B69A7 /* UIApplication+Extensions.swift */,
 				564FE3DA2BE2CC9B000B69A7 /* UIViewController+Extensions.swift */,
 			);
 			path = AnyAlert;
@@ -301,6 +304,7 @@
 				567E546E2BDF236E00D46550 /* ViewController0.swift in Sources */,
 				567E54682BDF174200D46550 /* AnyAlertModels.swift in Sources */,
 				567E546C2BDF1DFC00D46550 /* ViewController3.swift in Sources */,
+				564FE3DD2BE46C41000B69A7 /* UIApplication+Extensions.swift in Sources */,
 				564FE3DB2BE2CC9B000B69A7 /* UIViewController+Extensions.swift in Sources */,
 				564FE3D92BE19068000B69A7 /* ViewController2.swift in Sources */,
 				567E54672BDF174200D46550 /* AnyAlertManager.swift in Sources */,

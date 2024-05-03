@@ -58,6 +58,9 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
             hasNavBar: vc.hasNavBar,
             tapHandler: tapHandler
         )
+        guard let anyAlertDataStore = anyAlertVC.dataStore else {
+            return
+        }
         guard let anyAlertView = anyAlertVC.view else {
             return
         }
@@ -72,7 +75,7 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
             NSLayoutConstraint(item: anyAlertView, attribute: .top, relatedBy: .equal, toItem: vc.view, attribute: .top, multiplier: 1, constant: 0.0),
             NSLayoutConstraint(item: anyAlertView, attribute: .leading, relatedBy: .equal, toItem: vc.view, attribute: .leading, multiplier: 1, constant: 0.0),
             NSLayoutConstraint(item: anyAlertView, attribute: .trailing, relatedBy: .equal, toItem: vc.view, attribute: .trailing, multiplier: 1, constant: 0.0),
-            NSLayoutConstraint(item: anyAlertView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: CGFloat((anyAlertVC.dataStore?.height)!))
+            NSLayoutConstraint(item: anyAlertView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: CGFloat(anyAlertDataStore.height))
         ])
     }
 }
