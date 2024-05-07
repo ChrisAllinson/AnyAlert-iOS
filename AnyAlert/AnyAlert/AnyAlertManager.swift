@@ -9,138 +9,94 @@
 import Foundation
 import UIKit
 
+@objc public protocol AnyAlertManagerInput {
+    static var shared: AnyAlertManager { get }
+    static func show(_ alert: AnyAlert, from vc: UIViewController)
+    static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))
+}
 
 protocol AnyAlertManagerDataStore {
     var alerts: Dictionary<String, [AnyAlertViewController]> { get set }
 }
 
-@objc
-public protocol AnyAlertManagerInput {
-    static func show(_ alert: AnyAlert, from vc: UIViewController)
-    static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void))
-}
-
-
-// MARK: -
-
 public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
     
-    // MARK: singleton instance variables
+    // MARK: AnyAlertManagerInput
     
-    static var shared: AnyAlertManager = AnyAlertManager()
-    
-    
+    public static var shared: AnyAlertManager = AnyAlertManager()
     
     // MARK: AnyAlertManagerDataStore
     
     var alerts: Dictionary<String, [AnyAlertViewController]> = [:]
-    var initialStatusBarStyles: Dictionary<String, UIStatusBarStyle> = [:]
+    
+    // MARK: instance properties
+    
+    private var initialStatusBarStyles: Dictionary<String, UIStatusBarStyle> = [:]
+    
+    
+    
+    // MARK: lifecycle methods
+    
+    private override init() {}
     
     
     
     // MARK: private methods
     
-    private func vcHasNavBar(_ vc: UIViewController) -> Bool {
-        if let _ = vc.navigationController {
-            let isNavBarHidden: Bool = (vc.navigationController?.isNavigationBarHidden)!
-            return !isNavBarHidden
-        }
-        return false
-    }
-    
-    
-    
-    // MARK: fileprivate methods
-    
-    fileprivate func initCustom(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
+    private func initialize(alert: AnyAlert, vc: UIViewController, tapHandler: (() -> Void)? = nil) {
         let vcName = vc.debugDescription
         
         if initialStatusBarStyles[vcName] == nil {
-            initialStatusBarStyles[vcName] = UIApplication.shared.statusBarStyle
+            initialStatusBarStyles[vcName] = vc.preferredStatusBarStyle
         }
         
-        let hasNavBar: Bool = vcHasNavBar(vc)
-        
-        let tempVC: AnyAlertViewController = AnyAlertViewController.init(
+        let anyAlertVC: AnyAlertViewController = AnyAlertViewController.initialize(
             delegate: self,
             alert: alert,
             parentVcName: vcName,
             initialStatusBarStyle: initialStatusBarStyles[vcName]!,
-            hasNavBar: hasNavBar,
+            statusBarStyler: alert.statusBarStyler,
+            hasNavBar: vc.hasNavBar,
             tapHandler: tapHandler
         )
+        guard let anyAlertDataStore = anyAlertVC.dataStore else {
+            return
+        }
+        guard let anyAlertView = anyAlertVC.view else {
+            return
+        }
         
         if alerts[vcName] == nil {
             alerts[vcName] = []
         }
-        alerts[vcName]!.append(tempVC)
-
+        alerts[vcName]!.append(anyAlertVC)
         
-        vc.view.addSubview(tempVC.view)
-        
+        vc.view.addSubview(anyAlertView)
         vc.view.addConstraints([
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: vc.view,
-                attribute: .top,
-                multiplier: 1,
-                constant: 0.0
-            ),
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: vc.view,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 0.0
-            ),
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: vc.view,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 0.0
-            ),
-            NSLayoutConstraint(
-                item: tempVC.view,
-                attribute: .height,
-                relatedBy: .equal,
-                toItem: nil,
-                attribute: .height,
-                multiplier: 1,
-                constant: CGFloat((tempVC.dataStore?.height)!)
-            )
+            NSLayoutConstraint(item: anyAlertView, attribute: .top, relatedBy: .equal, toItem: vc.view, attribute: .top, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: anyAlertView, attribute: .leading, relatedBy: .equal, toItem: vc.view, attribute: .leading, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: anyAlertView, attribute: .trailing, relatedBy: .equal, toItem: vc.view, attribute: .trailing, multiplier: 1, constant: 0.0),
+            NSLayoutConstraint(item: anyAlertView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: CGFloat(anyAlertDataStore.height))
         ])
     }
 }
 
 
-// MARK: -
-
+// MARK: - AnyAlertManagerInput
 extension AnyAlertManager: AnyAlertManagerInput {
     
-    // MARK: AnyAlertManagerInput
-    
     public static func show(_ alert: AnyAlert, from vc: UIViewController) {
-        shared.initCustom(alert: alert, vc: vc)
+        shared.initialize(alert: alert, vc: vc)
     }
     
     public static func show(_ alert: AnyAlert, from vc: UIViewController, tapHandler: @escaping (() -> Void)) {
-        shared.initCustom(alert: alert, vc: vc, tapHandler: tapHandler)
+        shared.initialize(alert: alert, vc: vc, tapHandler: tapHandler)
     }
 }
 
 
-// MARK: -
-
+// MARK: - AnyAlertDelegate
 extension AnyAlertManager: AnyAlertDelegate {
-    
-    // MARK: AnyAlertDelegate
     
     func popAlert(id: String, parentVcName: String) {
         if let _ = alerts[parentVcName] {
