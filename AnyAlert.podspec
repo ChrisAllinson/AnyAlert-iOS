@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name        = "AnyAlert"
-  s.version     = "5.0.0"
+  s.version     = "4.0.0"
   s.summary     = "Customizable Alert message for Swift"
-  s.homepage    = "https://github.com/ChrisAllinson/AnyAlert-iOS/tree/3.1.0/AnyAlert/AnyAlert"
+  s.homepage    = "https://github.com/ChrisAllinson/AnyAlert-iOS/tree/4.0.0/AnyAlert/AnyAlert"
   s.license     = { :type => "MIT" }
   s.authors     = { "ChrisAllinson" => "allinson.ca@hotmail.com" }
 
