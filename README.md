@@ -58,7 +58,7 @@ Import the following 6 files into your project: [AnyAlert-iOS @ GitHub](https://
 
 ## Docs
 
-[www.allinson.ca/a/anyalert](http://allinson.ca/a/anyalert/)
+[www.allinson.ca/a/anyalert-website](http://allinson.ca/a/anyalert-website/)
 
 
 ## Source Code
