@@ -55,6 +55,7 @@ public class AnyAlertManager: NSObject, AnyAlertManagerDataStore {
             alert: alert,
             parentVcName: vcName,
             initialStatusBarStyle: initialStatusBarStyles[vcName]!,
+            statusBarStyler: alert.statusBarStyler,
             hasNavBar: vc.hasNavBar,
             tapHandler: tapHandler
         )

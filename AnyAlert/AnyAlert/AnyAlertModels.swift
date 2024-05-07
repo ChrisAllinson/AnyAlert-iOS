@@ -19,17 +19,19 @@ public class AnyAlert: NSObject {
     
     var backgroundColor: UIColor
     var statusBarStyle: UIStatusBarStyle
+    var statusBarStyler: (_ style: UIStatusBarStyle) -> Void
     
     var messageFont: UIFont
     var messageColor: UIColor
+    var labelAccessibilityHint: String?
     var closeButtonFont: UIFont
     var closeButtonColor: UIColor
+    var closeButtonAccessibilityLabel: String?
+    var closeButtonAccessibilityHint: String?
     
-    var height: Double
-    
+    var padding: Double
     var openSpeed: Double
     var closeSpeed: Double
-    
     var doesSelfDismiss: Bool
     var showFor: Double
     
@@ -37,22 +39,40 @@ public class AnyAlert: NSObject {
     
     // MARK: lifecycle methods
     
-    @objc public init(message: String, backgroundColor: UIColor, statusBarStyle: UIStatusBarStyle, messageFont: UIFont, messageColor: UIColor, closeButtonFont: UIFont, closeButtonColor: UIColor, height: Double, openSpeed: Double, closeSpeed: Double, doesSelfDismiss: Bool, showFor: Double) {
+    @objc public init(message: String,
+                      backgroundColor: UIColor = .darkText,
+                      statusBarStyle: UIStatusBarStyle = .lightContent,
+                      statusBarStyler: @escaping (_ style: UIStatusBarStyle) -> Void = {style in },
+                      messageFont: UIFont = .systemFont(ofSize: 20.0),
+                      messageColor: UIColor = .white,
+                      accessibilityHint: String? = "",
+                      closeButtonFont: UIFont = .systemFont(ofSize: 20.0),
+                      closeButtonColor: UIColor = .white,
+                      closeButtonAccessibilityLabel: String? = "",
+                      closeButtonAccessibilityHint: String? = "",
+                      padding: Double = 20.0,
+                      openSpeed: Double = 0.5,
+                      closeSpeed: Double = 0.5,
+                      doesSelfDismiss: Bool = true,
+                      showFor: Double = 2.0) {
+        
         self.message = message
         
         self.backgroundColor = backgroundColor
         self.statusBarStyle = statusBarStyle
+        self.statusBarStyler = statusBarStyler
         
         self.messageFont = messageFont
         self.messageColor = messageColor
+        self.labelAccessibilityHint = accessibilityHint
         self.closeButtonFont = closeButtonFont
         self.closeButtonColor = closeButtonColor
+        self.closeButtonAccessibilityLabel = closeButtonAccessibilityLabel
+        self.closeButtonAccessibilityHint = closeButtonAccessibilityHint
         
-        self.height = height
-        
+        self.padding = padding
         self.openSpeed = openSpeed
         self.closeSpeed = closeSpeed
-        
         self.doesSelfDismiss = doesSelfDismiss
         self.showFor = showFor
     }
@@ -85,6 +105,7 @@ enum AnyAlertAction {
             var hasNavBar: Bool
             var parentVcName: String
             var initialStatusBarStyle: UIStatusBarStyle
+            var statusBarStyler: (UIStatusBarStyle) -> Void
             var startPositionY: Double
             var endPositionY: Double
         }
@@ -108,6 +129,7 @@ enum AnyAlertAction {
             var hasNavBar: Bool
             var parentVcName: String
             var initialStatusBarStyle: UIStatusBarStyle
+            var statusBarStyler: (UIStatusBarStyle) -> Void
             var startPositionY: Double
             var endPositionY: Double
         }

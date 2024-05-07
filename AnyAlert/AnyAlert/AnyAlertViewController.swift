@@ -25,7 +25,7 @@ protocol AnyAlertDelegate {
 
 class AnyAlertViewController: UIViewController {
     
-    // MARK: instance propertiess
+    // MARK: instance properties
     
     @IBOutlet var alertContainer: UIView?
     @IBOutlet var topConstraint: NSLayoutConstraint?
@@ -52,11 +52,18 @@ class AnyAlertViewController: UIViewController {
         setup()
     }
     
-    class func initialize(delegate: AnyAlertDelegate, alert: AnyAlert, parentVcName: String, initialStatusBarStyle: UIStatusBarStyle, hasNavBar: Bool, tapHandler: (() -> Void)? = nil) -> AnyAlertViewController {
+    class func initialize(delegate: AnyAlertDelegate, alert: AnyAlert, parentVcName: String, initialStatusBarStyle: UIStatusBarStyle, statusBarStyler: ((UIStatusBarStyle) -> Void)?, hasNavBar: Bool, tapHandler: (() -> Void)? = nil) -> AnyAlertViewController {
         let storyboard = UIStoryboard(name: "AnyAlert", bundle: Bundle(for: self.classForCoder()))
         let vc = storyboard.instantiateViewController(withIdentifier: "AnyAlertViewController") as! AnyAlertViewController
-        vc.view.frame = CGRect(x: 0.0, y: 0.0, width: vc.view.frame.size.width, height: CGFloat(alert.height))
+        vc.view.frame = CGRect(x: 0.0, y: 0.0, width: vc.view.frame.size.width, height: 0.0)
         vc.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // determine height
+        let fontBeingUsed = vc.messageLabel?.font ?? alert.messageFont
+        let widthOfLabel = vc.view.frame.size.width - 32 - 32
+        let heightOfLabel = alert.message.heightWithConstrainedWidth(width: widthOfLabel, font: fontBeingUsed)
+        let alertHeight = heightOfLabel + 5 + 5 + alert.padding + alert.padding
+        
         vc.dataStore?.delegate = delegate
         vc.dataStore?.id = UUID().uuidString
         vc.dataStore?.message = alert.message
@@ -67,19 +74,20 @@ class AnyAlertViewController: UIViewController {
         vc.dataStore?.closeButtonColor = alert.closeButtonColor
         vc.dataStore?.parentVcName = parentVcName
         vc.dataStore?.initialStatusBarStyle = initialStatusBarStyle
+        vc.dataStore?.statusBarStyler = statusBarStyler
         vc.dataStore?.doesSelfDismiss = alert.doesSelfDismiss
         vc.dataStore?.safeAreaInsetsHeight = UIApplication.shared.safeAreaTopInsetsHeight
         if hasNavBar {
-            vc.dataStore?.height = alert.height
+            vc.dataStore?.height = alertHeight
         } else {
-            vc.dataStore?.height = alert.height + UIApplication.shared.safeAreaTopInsetsHeight
+            vc.dataStore?.height = alertHeight + UIApplication.shared.safeAreaTopInsetsHeight
         }
         vc.dataStore?.statusBarStyle = alert.statusBarStyle
         vc.dataStore?.hasNavBar = hasNavBar
         if hasNavBar {
-            vc.dataStore?.startPositionY = -1.0 * alert.height
+            vc.dataStore?.startPositionY = -1.0 * alertHeight
         } else {
-            vc.dataStore?.startPositionY = -1.0 * (alert.height + UIApplication.shared.safeAreaTopInsetsHeight)
+            vc.dataStore?.startPositionY = -1.0 * (alertHeight + UIApplication.shared.safeAreaTopInsetsHeight)
         }
         vc.dataStore?.endPositionY = 0.0
         vc.dataStore?.openSpeed = alert.openSpeed
@@ -97,13 +105,14 @@ class AnyAlertViewController: UIViewController {
         setTopConstraint()
         setLabelConstraint()
         setTapGestureRecognizer()
+        setAccessibilityLabels()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        setNeedsStatusBarAppearanceUpdate()
         displayAlert()
+        UIAccessibility.setFocusTo(messageLabel)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -112,12 +121,8 @@ class AnyAlertViewController: UIViewController {
         dismissAlert(immediately: true)
     }
     
-    
-    
-    // MARK: status bar
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return statusBarStyle
+    deinit {
+        removeTapGestureRecognizer()
     }
     
     
@@ -194,8 +199,33 @@ class AnyAlertViewController: UIViewController {
         
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(alertTapped))
         if let gesture = tapGestureRecognizer {
-            self.view.addGestureRecognizer(gesture)
-            self.view.isUserInteractionEnabled = true
+            messageLabel?.addGestureRecognizer(gesture)
+            messageLabel?.isUserInteractionEnabled = true
+        }
+    }
+    
+    private func removeTapGestureRecognizer() {
+        if let gesture = tapGestureRecognizer {
+            messageLabel?.removeGestureRecognizer(gesture)
+        }
+    }
+    
+    private func setAccessibilityLabels() {
+        guard let tempDataStore = dataStore else {
+            return
+        }
+        
+        messageLabel?.accessibilityLabel = "\(tempDataStore.message)"
+        if let _ = tapGestureRecognizer, let labelAccessibilityHint = tempDataStore.labelAccessibilityHint {
+            messageLabel?.accessibilityHint = labelAccessibilityHint
+            messageLabel?.accessibilityTraits = [ .button ]
+        }
+        
+        if let closeButtonAccessibilityLabel = tempDataStore.closeButtonAccessibilityLabel {
+            closeButton?.accessibilityLabel = closeButtonAccessibilityLabel
+        }
+        if let closeButtonAccessibilityHint = tempDataStore.closeButtonAccessibilityHint {
+            closeButton?.accessibilityHint = closeButtonAccessibilityHint
         }
     }
     
@@ -221,6 +251,7 @@ class AnyAlertViewController: UIViewController {
             hasNavBar: tempDataStore.hasNavBar,
             parentVcName: tempDataStore.parentVcName,
             initialStatusBarStyle: tempDataStore.initialStatusBarStyle,
+            statusBarStyler: tempDataStore.statusBarStyler,
             startPositionY: tempDataStore.startPositionY,
             endPositionY: tempDataStore.endPositionY
         )
@@ -271,8 +302,7 @@ extension AnyAlertViewController: AnyAlertDisplayLogic {
     }
     
     func setStatusBarStyle(viewModel: AnyAlertAction.Display.ViewModel) {
-        statusBarStyle = viewModel.statusBarStyle
-        setNeedsStatusBarAppearanceUpdate()
+        dataStore?.statusBarStyler(viewModel.statusBarStyle)
     }
     
     func showAlert(viewModel: AnyAlertAction.Display.ViewModel) {

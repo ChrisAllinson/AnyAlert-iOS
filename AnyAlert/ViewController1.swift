@@ -9,10 +9,14 @@ import UIKit
 
 class ViewController1: UIViewController {
     
+    // MARK: instance properties
+    
+    var statusBarStyle: UIStatusBarStyle = .darkContent
+    
     // MARK: status bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
+        return statusBarStyle
     }
     
     
@@ -21,14 +25,21 @@ class ViewController1: UIViewController {
     
     @IBAction func showAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
-            message: "Test Message Dark",
+            message: "Test Message Dark BG",
             backgroundColor: .purple,
             statusBarStyle: .lightContent,
+            statusBarStyler: { [weak self] style in
+                self?.statusBarStyle = style
+                self?.setNeedsStatusBarAppearanceUpdate()
+            },
             messageFont: .systemFont(ofSize: 20.0),
             messageColor: .white,
+            accessibilityHint: "",
             closeButtonFont: .systemFont(ofSize: 20.0),
             closeButtonColor: .white,
-            height: 95.0,
+            closeButtonAccessibilityLabel: "",
+            closeButtonAccessibilityHint: "",
+            padding: 20.0,
             openSpeed: 0.5,
             closeSpeed: 0.5,
             doesSelfDismiss: false,
@@ -39,14 +50,18 @@ class ViewController1: UIViewController {
     
     @IBAction func showSelfDismissingAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
-            message: "Test Message Light",
+            message: "Test Message Light BG",
             backgroundColor: .green,
             statusBarStyle: .darkContent,
+            statusBarStyler: { [weak self] style in
+                self?.statusBarStyle = style
+                self?.setNeedsStatusBarAppearanceUpdate()
+            },
             messageFont: .systemFont(ofSize: 20.0),
             messageColor: .black,
             closeButtonFont: .systemFont(ofSize: 20.0),
             closeButtonColor: .black,
-            height: 95.0,
+            padding: 20.0,
             openSpeed: 0.5,
             closeSpeed: 0.5,
             doesSelfDismiss: true,

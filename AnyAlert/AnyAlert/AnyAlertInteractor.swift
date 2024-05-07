@@ -19,12 +19,19 @@ protocol AnyAlertDataStore {
     var delegate: AnyAlertDelegate! { get set }
     
     var id: String { get set }
+    
     var message: String { get set }
+    
     var backgroundColor: UIColor! { get set }
+    
     var messageFont: UIFont! { get set }
     var messageColor: UIColor! { get set }
+    var labelAccessibilityHint: String? { get set }
     var closeButtonFont: UIFont! { get set }
     var closeButtonColor: UIColor! { get set }
+    var closeButtonAccessibilityLabel: String? { get set }
+    var closeButtonAccessibilityHint: String? { get set }
+    
     var parentVcName: String { get set }
     var initialStatusBarStyle: UIStatusBarStyle! { get set }
     var doesSelfDismiss: Bool! { get set }
@@ -33,6 +40,7 @@ protocol AnyAlertDataStore {
     var height: Double! { get set }
     
     var statusBarStyle: UIStatusBarStyle! { get set }
+    var statusBarStyler: ((UIStatusBarStyle) -> Void)! { get set }
     
     var hasNavBar: Bool! { get set }
     var startPositionY: Double! { get set }
@@ -56,12 +64,19 @@ class AnyAlertInteractor: AnyAlertDataStore {
     var delegate: AnyAlertDelegate!
     
     var id: String = ""
+    
     var message: String = ""
+    
     var backgroundColor: UIColor!
+    
     var messageFont: UIFont!
     var messageColor: UIColor!
+    var labelAccessibilityHint: String?
     var closeButtonFont: UIFont!
     var closeButtonColor: UIColor!
+    var closeButtonAccessibilityLabel: String?
+    var closeButtonAccessibilityHint: String?
+    
     var parentVcName: String = ""
     var initialStatusBarStyle: UIStatusBarStyle!
     var doesSelfDismiss: Bool!
@@ -70,6 +85,7 @@ class AnyAlertInteractor: AnyAlertDataStore {
     var height: Double!
     
     var statusBarStyle: UIStatusBarStyle!
+    var statusBarStyler: ((UIStatusBarStyle) -> Void)!
     
     var hasNavBar: Bool!
     var startPositionY: Double!
@@ -104,6 +120,7 @@ extension AnyAlertInteractor: AnyAlertBusinessLogic {
             hasNavBar: request.hasNavBar,
             parentVcName: request.parentVcName,
             initialStatusBarStyle: request.initialStatusBarStyle,
+            statusBarStyler: request.statusBarStyler,
             startPositionY: request.startPositionY,
             endPositionY: request.endPositionY
         )

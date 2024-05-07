@@ -13,6 +13,7 @@ extension UIViewController {
         if let navController = self.navigationController {
             return !navController.isNavigationBarHidden
         }
+        
         return false
     }
 }

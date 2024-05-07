@@ -48,8 +48,8 @@ class AnyAlertPresenter {
             return
         }
         
-        let threeQuarters = Int((3.0 * closeSpeed / 4.0) * 1000)
-        let delay = DispatchTime.now() + .milliseconds(threeQuarters)
+        let oneHalf = Int((closeSpeed / 2.0) * 1000)
+        let delay = DispatchTime.now() + .milliseconds(oneHalf)
         DispatchQueue.main.asyncAfter(deadline: delay) {
             if let tempArray = AnyAlertManager.shared.alerts[parentVcName] {
                 let tempStatusBarStyle: UIStatusBarStyle!
@@ -58,9 +58,9 @@ class AnyAlertPresenter {
                 if isLast {
                     tempStatusBarStyle = initialStatusBarStyle
                 } else if isFirst {
-                    tempStatusBarStyle = (tempArray[tempArray.count - 2].dataStore?.statusBarStyle)!
+                    tempStatusBarStyle = tempArray[tempArray.count - 2].dataStore?.statusBarStyle ?? initialStatusBarStyle
                 } else {
-                    tempStatusBarStyle = (tempArray[tempArray.count - 1].dataStore?.statusBarStyle)!
+                    tempStatusBarStyle = tempArray[tempArray.count - 1].dataStore?.statusBarStyle ?? initialStatusBarStyle
                 }
                 
                 let viewModel = AnyAlertAction.Display.ViewModel(
@@ -115,8 +115,8 @@ extension AnyAlertPresenter: AnyAlertPresentationLogic {
         viewController?.showAlert(viewModel: viewModel)
         
         if !response.hasNavBar {
-            let oneQuarter = Int(response.openSpeed / 4.0 * 1000.0)
-            let statusBarDelay = DispatchTime.now() + .milliseconds(oneQuarter)
+            let oneHalf = Int(response.openSpeed / 2.0 * 1000.0)
+            let statusBarDelay = DispatchTime.now() + .milliseconds(oneHalf)
             DispatchQueue.main.asyncAfter(deadline: statusBarDelay) {
                 self.viewController?.setStatusBarStyle(viewModel: viewModel)
             }

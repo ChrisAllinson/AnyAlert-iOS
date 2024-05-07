@@ -9,10 +9,14 @@ import UIKit
 
 class ViewController3: UIViewController {
     
+    // MARK: instance properties
+    
+    var statusBarStyle: UIStatusBarStyle = .lightContent
+    
     // MARK: status bar
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return statusBarStyle
     }
     
     
@@ -21,40 +25,40 @@ class ViewController3: UIViewController {
     
     @IBAction func showAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
-            message: "Test Message Dark",
-            backgroundColor: .purple,
-            statusBarStyle: .lightContent,
+            message: "Test Message Dark BG",
+            backgroundColor: .green,
+            statusBarStyle: .darkContent,
+            statusBarStyler: { [weak self] style in
+                self?.statusBarStyle = style
+                self?.setNeedsStatusBarAppearanceUpdate()
+            },
             messageFont: .systemFont(ofSize: 20.0),
-            messageColor: .white,
+            messageColor: .black,
+            accessibilityHint: "",
             closeButtonFont: .systemFont(ofSize: 20.0),
-            closeButtonColor: .white,
-            height: 95.0,
+            closeButtonColor: .black,
+            closeButtonAccessibilityLabel: "",
+            closeButtonAccessibilityHint: "",
+            padding: 20.0,
             openSpeed: 0.5,
             closeSpeed: 0.5,
             doesSelfDismiss: false,
             showFor: 2.0
         )
-        AnyAlertManager.show(tempAlert, from: self)
+        AnyAlertManager.show(tempAlert, from: self) {
+            print("ALERT TAPPED")
+        }
     }
     
     @IBAction func showSelfDismissingAlertPressed() {
         let tempAlert: AnyAlert = AnyAlert(
-            message: "Test Message Light",
-            backgroundColor: .yellow,
-            statusBarStyle: .darkContent,
-            messageFont: .systemFont(ofSize: 20.0),
-            messageColor: .black,
-            closeButtonFont: .systemFont(ofSize: 20.0),
-            closeButtonColor: .black,
-            height: 95.0,
-            openSpeed: 0.5,
-            closeSpeed: 0.5,
-            doesSelfDismiss: true,
-            showFor: 2.0
+            message: "Test Message Light BG",
+            statusBarStyler: { [weak self] style in
+                self?.statusBarStyle = style
+                self?.setNeedsStatusBarAppearanceUpdate()
+            }
         )
-        AnyAlertManager.show(tempAlert, from: self) {
-            print("ALERT TAPPED")
-        }
+        AnyAlertManager.show(tempAlert, from: self)
     }
     
     @IBAction func closePressed() {
